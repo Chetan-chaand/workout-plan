@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Weekly Workout — Lean Cut</title>
+  <meta name="theme-color" content="#141210">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lean Cut">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="manifest" href="./manifest.json">
+<style>
+  :root{
+    --ink:#141210;
+    --ink-soft:#26221d;
+    --paper:#f0ebe0;
+    --steel:#4a4f55;
+    --rust:#c1440e;
+    --rust-bright:#e05a1e;
+    --rust-dim:#8a3009;
+    --line:#ddd4bf;
+    --ok:#2f6b3c;
+    --card:#fcf9f1;
+    /* equipment colors */
+    --eq-machine:#3557a0;
+    --eq-db:#a0522d;
+    --eq-barbell:#5a3d8a;
+    --eq-cable:#0f766e;
+    --eq-body:#8a6d1f;
+    --eq-cardio:#b03a48;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--ink);}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  .app{
+    width:100%;
+    max-width:480px;
+    background:var(--paper);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 0 60px rgba(0,0,0,.4);
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:linear-gradient(150deg,#1a1714 0%,#241d17 60%,#2c211a 100%);
+    color:var(--paper);
+    padding:24px 20px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-50px; right:-50px;
+    width:160px; height:160px;
+    border-radius:50%;
+    background:radial-gradient(circle,var(--rust) 0%,transparent 70%);
+    opacity:0.35;
+  }
+  .eyebrow{
+    font-size:10.5px;
+    letter-spacing:3.5px;
+    text-transform:uppercase;
+    color:var(--rust-bright);
+    font-weight:800;
+    margin:0 0 6px;
+  }
+  h1{
+    margin:0;
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:-0.6px;
+    line-height:1.05;
+  }
+  .stat-row{
+    display:flex;
+    gap:16px;
+    margin-top:14px;
+  }
+  .stat{
+    display:flex;
+    flex-direction:column;
+  }
+  .stat .num{
+    font-size:16px;
+    font-weight:800;
+    color:#fff;
+  }
+  .stat .lbl{
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#a89f90;
+    margin-top:1px;
+  }
+
+  /* ---------- DAY NAV ---------- */
+  nav.days{
+    display:flex;
+    overflow-x:auto;
+    background:var(--ink-soft);
+    padding:0 6px;
+    scrollbar-width:none;
+    position:sticky;
+    top:0;
+    z-index:20;
+  }
+  nav.days::-webkit-scrollbar{display:none;}
+  nav.days button{
+    flex:0 0 auto;
+    background:none;
+    border:none;
+    color:#9a9184;
+    font-size:13px;
+    font-weight:700;
+    padding:15px 13px 12px;
+    letter-spacing:0.5px;
+    border-bottom:3px solid transparent;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+  }
+  nav.days button .dot{
+    width:5px;height:5px;border-radius:50%;background:transparent;
+  }
+  nav.days button.active{
+    color:#fff;
+    border-bottom:3px solid var(--rust);
+  }
+  nav.days button.done .dot{background:var(--ok);}
+  nav.days button.today-badge{position:relative;}
+  nav.days button.today-badge::after{
+    content:"TODAY";
+    position:absolute;
+    top:4px; right:-2px;
+    font-size:6.5px;
+    letter-spacing:0.5px;
+    background:var(--rust);
+    color:#fff;
+    padding:1px 3px;
+    border-radius:3px;
+    font-weight:800;
+  }
+
+  /* ---------- MAIN ---------- */
+  main{flex:1;padding:18px 16px 44px;}
+  .day-panel{display:none;animation:fade .25s ease;}
+  .day-panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .day-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .day-focus{
+    font-size:22px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:9px;
+  }
+  .day-count{
+    font-size:12px;
+    font-weight:700;
+    color:var(--steel);
+    background:#e6ddc9;
+    padding:4px 9px;
+    border-radius:20px;
+  }
+  .progress-wrap{
+    height:7px;
+    background:var(--line);
+    border-radius:5px;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,var(--rust),var(--rust-bright));
+    width:0%;
+    transition:width .3s ease;
+    border-radius:5px;
+  }
+
+  .section-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:2.5px;
+    color:var(--rust-dim);
+    font-weight:800;
+    margin:24px 0 10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .section-label:first-of-type{margin-top:0;}
+
+  /* ---------- EXERCISE CARD ---------- */
+  .ex-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:13px 14px;
+    margin-bottom:9px;
+    transition:background .2s,border-color .2s;
+  }
+  .ex-card.checked{
+    background:#eef4ee;
+    border-color:#c3d9c6;
+  }
+  .ex-top{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .ex-check{
+    width:26px;height:26px;
+    border-radius:50%;
+    border:2px solid var(--steel);
+    flex:0 0 26px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    font-size:15px;
+    color:transparent;
+    font-weight:900;
+    margin-top:1px;
+    transition:all .15s;
+  }
+  .ex-check.on{
+    background:var(--ok);
+    border-color:var(--ok);
+    color:#fff;
+  }
+  .ex-info{flex:1;min-width:0;}
+  .ex-name-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:5px;
+  }
+  .ex-name{
+    font-weight:700;
+    font-size:15px;
+    margin:0;
+  }
+  .ex-card.checked .ex-name{
+    text-decoration:line-through;
+    color:#5a6b5c;
+  }
+  .eq-tag{
+    font-size:9.5px;
+    font-weight:800;
+    letter-spacing:0.6px;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:5px;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .eq-machine{background:var(--eq-machine);}
+  .eq-db{background:var(--eq-db);}
+  .eq-barbell{background:var(--eq-barbell);}
+  .eq-cable{background:var(--eq-cable);}
+  .eq-body{background:var(--eq-body);}
+  .eq-cardio{background:var(--eq-cardio);}
+  .ex-meta{
+    font-size:12.5px;
+    color:var(--steel);
+    font-weight:600;
+  }
+  .ex-cue{
+    font-size:12px;
+    color:var(--rust-dim);
+    margin-top:5px;
+    line-height:1.4;
+  }
+  .ex-actions{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+  }
+  .demo-btn{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+    padding:7px 10px;
+    border-radius:7px;
+    border:1px solid var(--line);
+    color:var(--steel);
+    background:#fff;
+    transition:background .15s,border-color .15s;
+  }
+  .demo-btn:active{background:#f3ece0;}
+  .demo-btn.video{color:var(--rust-dim);border-color:#f0d3c2;background:#fdf3ec;}
+  .demo-btn .ic{font-size:13px;}
+
+  /* ---------- REST ---------- */
+  .rest-day{
+    text-align:center;
+    padding:70px 24px;
+  }
+  .rest-day .big{font-size:52px;margin-bottom:8px;}
+  .rest-day .day-focus{justify-content:center;margin-bottom:8px;}
+  .rest-day p{color:var(--steel);font-size:14px;line-height:1.6;}
+
+  /* ---------- FOOTER ---------- */
+  .reset-btn{
+    display:block;
+    margin:22px auto 0;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--steel);
+    font-size:12px;
+    font-weight:600;
+    padding:9px 16px;
+    border-radius:22px;
+    cursor:pointer;
+  }
+  .reset-btn:active{background:#e6ddc9;}
+  footer{
+    text-align:center;
+    font-size:11px;
+    color:#8a8477;
+    padding:16px;
+    line-height:1.5;
+  }
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 10px;
+    justify-content:center;
+    padding:0 16px 8px;
+  }
+  .legend span{
+    font-size:9.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    color:var(--steel);
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .legend span i{
+    width:9px;height:9px;border-radius:2px;display:inline-block;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <p class="eyebrow">Belly Fat Loss · Lean Body</p>
+    <h1>Weekly Workout</h1>
+    <div class="stat-row">
+      <div class="stat"><span class="num">5</span><span class="lbl">Lift Days</span></div>
+      <div class="stat"><span class="num">1</span><span class="lbl">HIIT Day</span></div>
+      <div class="stat"><span class="num">Daily</span><span class="lbl">Cardio + Core</span></div>
+    </div>
+  </header>
+
+  <nav class="days" id="dayNav"></nav>
+
+  <main id="mainPanels"></main>
+
+  <div class="legend">
+    <span><i style="background:#3557a0"></i>Machine</span>
+    <span><i style="background:#a0522d"></i>Dumbbell</span>
+    <span><i style="background:#5a3d8a"></i>Barbell</span>
+    <span><i style="background:#0f766e"></i>Cable</span>
+    <span><i style="background:#8a6d1f"></i>Bodyweight</span>
+    <span><i style="background:#b03a48"></i>Cardio</span>
+  </div>
+  <footer>Tap ▶ Demo on any exercise to see a video &amp; images.<br>Your checkmarks save automatically for the day.</footer>
+</div>
+
+<script>
+// eq: machine | db | barbell | cable | body | cardio
+// s = search term for demo link
+const PLAN = {
+  mon: {
+    label:"Mon", focus:"Chest", emoji:"💪",
+    lift:[
+      {n:"Flat Bench / DB Press", eq:"barbell", m:"10–15 × 3 · 1–2 min rest", c:"Bar/DBs to mid-chest, elbows ~45° from body", s:"flat barbell bench press"},
+      {n:"Incline Bench / DB Press", eq:"db", m:"10–15 × 3 · 1–2 min rest", c:"Bench at 30-45°, press up and slightly back", s:"incline dumbbell press"},
+      {n:"Chest Fly Machine", eq:"machine", m:"10–15 × 3 · 1 min rest", c:"Slight elbow bend, squeeze at center", s:"pec deck chest fly machine"},
+      {n:"Decline Press", eq:"barbell", m:"10–15 × 3 · 1 min rest", c:"Bar to lower chest, controlled descent", s:"decline barbell bench press"},
+      {n:"Cable Cross", eq:"cable", m:"10–15 × 3 · 1 min rest", c:"Pull handles together in front of chest, squeeze", s:"cable crossover chest"},
+      {n:"Push Ups", eq:"body", m:"To failure × 3 · 1 min rest", c:"Body straight, hands shoulder-width", s:"push up proper form"},
+    ],
+    cardio:[{n:"Treadmill", eq:"cardio", m:"15–20 min · moderate pace", c:"Brisk walk or light jog", s:"treadmill workout"}],
+    core:[
+      {n:"Plank", eq:"body", m:"30–45 sec × 3", c:"Straight line head to heels, core braced", s:"plank exercise form"},
+      {n:"Crunches", eq:"body", m:"15–20 × 3", c:"Lift shoulders only, don't pull on neck", s:"crunches abs exercise"},
+    ]
+  },
+  tue: {
+    label:"Tue", focus:"Back", emoji:"🎯",
+    lift:[
+      {n:"Pull Ups", eq:"body", m:"To failure × 3 · 1 min rest", c:"Hands wider than shoulders, chin over bar", s:"pull up proper form"},
+      {n:"Lat Pull Down", eq:"machine", m:"10–15 × 3 · 1 min rest", c:"Pull to upper chest, control the return", s:"lat pulldown machine"},
+      {n:"Seated Row Cable", eq:"cable", m:"10–15 × 3 · 1 min rest", c:"Pull to torso, squeeze shoulder blades", s:"seated cable row"},
+      {n:"Single Arm Row DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Flat back, pull elbow past torso", s:"single arm dumbbell row"},
+    ],
+    cardio:[{n:"Cycling", eq:"cardio", m:"15–20 min · moderate pace", c:"Steady resistance", s:"stationary bike workout"}],
+    core:[
+      {n:"Leg Raises", eq:"body", m:"15 × 3", c:"Lower legs slow, don't let lower back arch", s:"lying leg raises abs"},
+      {n:"Russian Twists", eq:"body", m:"20 × 3 (10/side)", c:"Lean back slightly, rotate from torso", s:"russian twist exercise"},
+    ]
+  },
+  wed: {
+    label:"Wed", focus:"Shoulders", emoji:"🔺",
+    lift:[
+      {n:"Overhead Press DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Press straight up, don't flare elbows too wide", s:"dumbbell shoulder press"},
+      {n:"Front Raise DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Raise to shoulder height, slight elbow bend", s:"dumbbell front raise"},
+      {n:"Side Lateral Raise", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Lead with elbows, raise to shoulder height", s:"dumbbell lateral raise"},
+      {n:"Arnold Press", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Rotate palms in-to-out as you press up", s:"arnold press dumbbell"},
+    ],
+    cardio:[{n:"Cross Trainer", eq:"cardio", m:"15–20 min · moderate pace", c:"Elliptical, use the handles", s:"cross trainer elliptical workout"}],
+    core:[
+      {n:"Plank", eq:"body", m:"45 sec × 3", c:"Straight line head to heels, core braced", s:"plank exercise form"},
+      {n:"Crunches", eq:"body", m:"20 × 3", c:"Lift shoulders only, don't pull on neck", s:"crunches abs exercise"},
+    ]
+  },
+  thu: {
+    label:"Thu", focus:"Bi / Tri", emoji:"💥",
+    lift:[
+      {n:"Barbell Curl", eq:"barbell", m:"10–15 × 3 · 1 min rest", c:"Elbows pinned to sides, no swinging", s:"barbell bicep curl"},
+      {n:"Hammer Curl DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Palms face each other throughout", s:"hammer curl dumbbell"},
+      {n:"Preacher Curl", eq:"machine", m:"10–15 × 3 · 1 min rest", c:"Arm flat on pad, no momentum", s:"preacher curl"},
+      {n:"Tricep Pushdown Cable", eq:"cable", m:"10–15 × 3 · 1 min rest", c:"Elbows pinned to sides, full extension", s:"tricep pushdown cable"},
+      {n:"Overhead Extension DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Elbows in, lower behind head slowly", s:"overhead dumbbell tricep extension"},
+      {n:"Tricep Single Hand DB", eq:"db", m:"10–15 × 3 · 1 min rest", c:"One arm overhead, elbow stays fixed", s:"single arm dumbbell tricep extension"},
+    ],
+    cardio:[{n:"Treadmill", eq:"cardio", m:"15–20 min · moderate pace", c:"Brisk walk or light jog", s:"treadmill workout"}],
+    core:[
+      {n:"Leg Raises", eq:"body", m:"15 × 3", c:"Lower legs slow, don't let lower back arch", s:"lying leg raises abs"},
+      {n:"Plank", eq:"body", m:"30 sec × 3", c:"Straight line head to heels, core braced", s:"plank exercise form"},
+    ]
+  },
+  fri: {
+    label:"Fri", focus:"Legs", emoji:"🦵",
+    lift:[
+      {n:"Squats", eq:"barbell", m:"10–15 × 3 · 1 min rest", c:"Chest up, knees don't cave inward", s:"barbell back squat"},
+      {n:"Front Squats", eq:"barbell", m:"10–15 × 3 · 1 min rest", c:"Bar on front shoulders, torso upright, brace core", s:"front squat barbell"},
+      {n:"Leg Press Wide", eq:"machine", m:"10–15 × 3 · 1 min rest", c:"Feet wide/high on platform, don't lock knees", s:"leg press wide stance"},
+      {n:"Lunges", eq:"db", m:"10–15 × 3 · 1 min rest", c:"Front knee tracks over ankle, not past toes", s:"dumbbell lunges"},
+      {n:"RDL", eq:"db", m:"15–30 × 3 · 1 min rest", c:"Hinge at hips, flat back, feel hamstring stretch", s:"dumbbell romanian deadlift"},
+      {n:"Lying Leg Curl", eq:"machine", m:"10–15 × 3 · 1 min rest", c:"Controlled curl, no hip lift off pad", s:"lying leg curl machine"},
+      {n:"Standing Calf Raises", eq:"machine", m:"15–30 × 3 · 1 min rest", c:"Full stretch down, pause squeeze at top", s:"standing calf raise machine"},
+    ],
+    cardio:[{n:"Cycling", eq:"cardio", m:"15–20 min · moderate pace", c:"Steady resistance", s:"stationary bike workout"}],
+    core:[
+      {n:"Crunches", eq:"body", m:"20 × 3", c:"Lift shoulders only, don't pull on neck", s:"crunches abs exercise"},
+    ]
+  },
+  sat: {
+    label:"Sat", focus:"HIIT + Core", emoji:"🔥",
+    lift:[],
+    cardio:[
+      {n:"Treadmill Intervals", eq:"cardio", m:"1 min fast / 1 min walk · 8–10 rounds", c:"Push hard on fast minute, full recovery on walk", s:"treadmill HIIT intervals"},
+      {n:"Incline Walk finisher", eq:"cardio", m:"10 min · moderate incline", c:"Steady pace, upright posture", s:"incline treadmill walk"},
+    ],
+    core:[
+      {n:"Plank", eq:"body", m:"45 sec × 3", c:"Straight line head to heels, core braced", s:"plank exercise form"},
+      {n:"Crunches", eq:"body", m:"20 × 3", c:"Lift shoulders only, don't pull on neck", s:"crunches abs exercise"},
+      {n:"Leg Raises", eq:"body", m:"15 × 3", c:"Lower legs slow, don't let lower back arch", s:"lying leg raises abs"},
+      {n:"Russian Twists", eq:"body", m:"20 × 3 (10/side)", c:"Lean back slightly, rotate from torso", s:"russian twist exercise"},
+    ]
+  },
+  sun: { label:"Sun", focus:"Rest", emoji:"😴", rest:true }
+};
+
+const EQ_LABEL = {machine:"Machine", db:"Dumbbell", barbell:"Barbell", cable:"Cable", body:"Bodyweight", cardio:"Cardio"};
+const order = ["mon","tue","wed","thu","fri","sat","sun"];
+const nav = document.getElementById("dayNav");
+const main = document.getElementById("mainPanels");
+const todayIdx = (new Date().getDay() + 6) % 7; // Mon=0..Sun=6
+
+// build nav
+order.forEach((key,i)=>{
+  const d = PLAN[key];
+  const btn = document.createElement("button");
+  btn.dataset.key = key;
+  btn.innerHTML = `<span>${d.label}</span><span class="dot"></span>`;
+  if(i===todayIdx){ btn.classList.add("active","today-badge"); }
+  btn.onclick = ()=>selectDay(key);
+  nav.appendChild(btn);
+});
+
+// build panels
+order.forEach(key=>{
+  const d = PLAN[key];
+  const panel = document.createElement("div");
+  panel.className = "day-panel";
+  panel.id = "panel-"+key;
+  if(key===order[todayIdx]) panel.classList.add("active");
+
+  if(d.rest){
+    panel.innerHTML = `
+      <div class="rest-day">
+        <div class="big">${d.emoji}</div>
+        <div class="day-focus">Rest Day</div>
+        <p>No lifting, no cardio targets today.<br>A light walk is fine. Let the muscles recover and grow.</p>
+      </div>`;
+    main.appendChild(panel);
+    return;
+  }
+
+  const total = d.lift.length + d.cardio.length + d.core.length;
+  let html = `
+    <div class="day-head">
+      <div class="day-focus">${d.emoji} ${d.focus}</div>
+      <div class="day-count">${total} exercises</div>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="bar-${key}"></div></div>`;
+
+  if(d.lift.length){
+    html += `<div class="section-label">Lift</div>`;
+    d.lift.forEach((ex,i)=>html+=exCard(key,"lift",i,ex));
+  }
+  if(d.cardio.length){
+    html += `<div class="section-label">Cardio</div>`;
+    d.cardio.forEach((ex,i)=>html+=exCard(key,"cardio",i,ex));
+  }
+  if(d.core.length){
+    html += `<div class="section-label">Core</div>`;
+    d.core.forEach((ex,i)=>html+=exCard(key,"core",i,ex));
+  }
+  html += `<button class="reset-btn" onclick="resetDay('${key}')">Reset today's checks</button>`;
+  panel.innerHTML = html;
+  main.appendChild(panel);
+});
+
+function exCard(day,section,i,ex){
+  const id = `${day}-${section}-${i}`;
+  const yt = "https://www.youtube.com/results?search_query=" + encodeURIComponent("how to " + ex.s);
+  const img = "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(ex.s + " exercise");
+  return `
+    <div class="ex-card" id="card-${id}">
+      <div class="ex-top">
+        <div class="ex-check" id="check-${id}" onclick="toggle('${day}','${id}')"></div>
+        <div class="ex-info">
+          <div class="ex-name-row">
+            <p class="ex-name">${ex.n}</p>
+            <span class="eq-tag eq-${ex.eq}">${EQ_LABEL[ex.eq]}</span>
+          </div>
+          <div class="ex-meta">${ex.m}</div>
+          ${ex.c ? `<div class="ex-cue">💡 ${ex.c}</div>` : ""}
+          <div class="ex-actions">
+            <a class="demo-btn video" href="${yt}" target="_blank" rel="noopener"><span class="ic">▶</span> Demo</a>
+            <a class="demo-btn" href="${img}" target="_blank" rel="noopener"><span class="ic">🔍</span> Images</a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function selectDay(key){
+  document.querySelectorAll("nav.days button").forEach(b=>b.classList.toggle("active", b.dataset.key===key));
+  document.querySelectorAll(".day-panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+key));
+}
+
+// ---- Storage: localStorage for standalone use, with in-memory fallback ----
+const memStore = {};
+function hasLS(){
+  try{ const k="__t"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return true; }
+  catch(e){ return false; }
+}
+const LS_OK = hasLS();
+function storageKey(day){
+  const today = new Date().toISOString().slice(0,10);
+  return `workout:${day}:${today}`;
+}
+function saveDayState(day){
+  const cards = document.querySelectorAll(`#panel-${day} .ex-check`);
+  const state = {};
+  cards.forEach(c=>state[c.id]=c.classList.contains("on"));
+  const val = JSON.stringify(state);
+  try{
+    if(LS_OK) localStorage.setItem(storageKey(day), val);
+    else memStore[storageKey(day)] = val;
+  }catch(e){ memStore[storageKey(day)] = val; }
+}
+function readDayState(day){
+  try{
+    const raw = LS_OK ? localStorage.getItem(storageKey(day)) : memStore[storageKey(day)];
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function toggle(day,id){
+  const checkEl = document.getElementById("check-"+id);
+  const cardEl = document.getElementById("card-"+id);
+  const on = checkEl.classList.toggle("on");
+  checkEl.textContent = on ? "✓" : "";
+  cardEl.classList.toggle("checked", on);
+  saveDayState(day);
+  updateProgress(day);
+}
+function loadDayState(day){
+  const state = readDayState(day);
+  if(state){
+    Object.entries(state).forEach(([id,on])=>{
+      if(!on) return;
+      const checkEl = document.getElementById(id);
+      const cardEl = document.getElementById("card-"+id.replace("check-",""));
+      if(checkEl){ checkEl.classList.add("on"); checkEl.textContent="✓"; }
+      if(cardEl) cardEl.classList.add("checked");
+    });
+  }
+  updateProgress(day);
+}
+function updateProgress(day){
+  const cards = document.querySelectorAll(`#panel-${day} .ex-check`);
+  if(!cards.length) return;
+  const done = document.querySelectorAll(`#panel-${day} .ex-check.on`).length;
+  const bar = document.getElementById("bar-"+day);
+  if(bar) bar.style.width = Math.round((done/cards.length)*100)+"%";
+  const navBtn = document.querySelector(`nav.days button[data-key="${day}"]`);
+  if(navBtn) navBtn.classList.toggle("done", done===cards.length && done>0);
+}
+function resetDay(day){
+  document.querySelectorAll(`#panel-${day} .ex-check`).forEach(c=>{c.classList.remove("on");c.textContent="";});
+  document.querySelectorAll(`#panel-${day} .ex-card`).forEach(c=>c.classList.remove("checked"));
+  saveDayState(day);
+  updateProgress(day);
+}
+
+order.forEach(key=>{ if(!PLAN[key].rest) loadDayState(key); });
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js").catch(function(){});
+}
+</script>
+
+</body>
+</html>
