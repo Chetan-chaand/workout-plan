@@ -3,256 +3,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Weekly Workout — Lean Cut</title>
-  <meta name="theme-color" content="#141210">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Lean Cut">
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-  <link rel="manifest" href="./manifest.json">
+<title>Lean Cut</title>
+<meta name="theme-color" content="#101215">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lean Cut">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="manifest" href="./manifest.json">
 <style>
   :root{
-    --ink:#141210;
-    --ink-soft:#231e19;
-    --paper:#f1ece2;
-    --steel:#4a4f55;
-    --steel-soft:#6b7178;
-    --rust:#c1440e;
-    --rust-bright:#e05a1e;
-    --rust-dim:#8a3009;
-    --line:#ded5c1;
-    --line-soft:#e9e1d0;
-    --ok:#2f6b3c;
-    --card:#fdfaf3;
-    --eq-machine:#3557a0;
-    --eq-db:#a0522d;
-    --eq-barbell:#5a3d8a;
-    --eq-cable:#0f766e;
-    --eq-body:#8a6d1f;
-    --eq-cardio:#b03a48;
+    /* surfaces: rubber gym flooring, cast iron */
+    --floor:#101215;
+    --deck:#191c21;
+    --deck-2:#20242b;
+    --ridge:#2c313a;
+    /* chalk + steel */
+    --chalk:#f7f6f3;
+    --steel:#b3bac4;
+    --steel-dim:#8d95a0;
+    /* stencil paint accent */
+    --paint:#e8b33c;
+    --paint-deep:#c9902a;
+    --go:#4f9d69;
+    /* olympic plate colours */
+    --pl-barbell:#c8322b;
+    --pl-machine:#3272bd;
+    --pl-db:#d9a327;
+    --pl-cable:#3f8f5c;
+    --pl-body:#d8d4c8;
+    --pl-cardio:#8a919b;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;background:var(--ink);}
+  html,body{margin:0;padding:0;background:var(--floor);}
   body{
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-    color:var(--ink);min-height:100vh;display:flex;justify-content:center;
+    color:var(--chalk);min-height:100vh;display:flex;justify-content:center;
+    -webkit-font-smoothing:antialiased;
   }
-  .app{
-    width:100%;max-width:480px;background:var(--paper);
-    min-height:100vh;display:flex;flex-direction:column;
-    box-shadow:0 0 60px rgba(0,0,0,.4);position:relative;
-  }
+  .app{width:100%;max-width:480px;min-height:100vh;display:flex;flex-direction:column;background:var(--floor);}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--paint);outline-offset:2px;}
 
-  /* HEADER */
-  header{
-    background:linear-gradient(150deg,#1a1714,#241d17 60%,#2c211a);
-    color:var(--paper);padding:22px 20px 16px;position:relative;overflow:hidden;
+  /* ---------- HERO: today's session ---------- */
+  .hero{padding:26px 20px 20px;border-bottom:1px solid var(--ridge);}
+  .hero-day{
+    font-size:13px;color:var(--steel);letter-spacing:.2px;margin:0 0 2px;font-weight:600;
   }
-  header::before{
-    content:"";position:absolute;top:-50px;right:-50px;width:170px;height:170px;
-    border-radius:50%;background:radial-gradient(circle,var(--rust) 0%,transparent 70%);opacity:.35;
+  .hero-focus{
+    font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:.98;margin:0;
   }
-  .eyebrow{
-    font-size:10px;letter-spacing:3.5px;text-transform:uppercase;
-    color:var(--rust-bright);font-weight:800;margin:0 0 5px;
+  .hero-sub{
+    display:flex;align-items:baseline;gap:6px;margin-top:10px;
+    font-size:13px;color:var(--steel);font-weight:600;
   }
-  h1{margin:0;font-size:27px;font-weight:800;letter-spacing:-.6px;line-height:1.05;}
-  .week-strip{display:flex;gap:5px;margin-top:15px;}
-  .week-dot{
-    flex:1;height:4px;border-radius:3px;background:#3a322a;position:relative;
+  .hero-sub b{color:var(--chalk);font-weight:800;font-variant-numeric:tabular-nums;}
+  .week{display:flex;gap:3px;margin-top:16px;}
+  .week i{
+    flex:1;height:3px;border-radius:2px;background:var(--ridge);display:block;
   }
-  .week-dot.done{background:var(--ok);}
-  .week-dot.today{background:var(--rust-bright);}
-  .week-note{font-size:10.5px;color:#a89f90;margin-top:7px;letter-spacing:.3px;}
+  .week i.done{background:var(--go);}
+  .week i.now{background:var(--paint);}
 
-  /* NAV */
-  nav.days{
-    display:flex;background:var(--ink-soft);padding:0 4px;
+  /* ---------- DAY RAIL ---------- */
+  .rail{
+    display:flex;background:var(--deck);border-bottom:1px solid var(--ridge);
     position:sticky;top:0;z-index:30;
   }
-  nav.days button{
-    flex:1;background:none;border:none;color:#948b7e;font-size:12.5px;font-weight:700;
-    padding:13px 2px 10px;border-bottom:3px solid transparent;cursor:pointer;
-    display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;
+  .rail button{
+    flex:1;background:none;border:none;padding:15px 0 12px;cursor:pointer;font-family:inherit;
+    color:var(--steel-dim);font-size:13.5px;font-weight:700;letter-spacing:.3px;
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    border-bottom:2px solid transparent;position:relative;
   }
-  nav.days button .dot{width:5px;height:5px;border-radius:50%;background:transparent;}
-  nav.days button.active{color:#fff;border-bottom-color:var(--rust);}
-  nav.days button.done .dot{background:var(--ok);}
-  nav.days button.is-today::before{
-    content:"";position:absolute;top:6px;right:calc(50% - 16px);
-    width:4px;height:4px;border-radius:50%;background:var(--rust-bright);
+  .rail button span.mark{width:4px;height:4px;border-radius:50%;background:transparent;}
+  .rail button.on{color:var(--chalk);border-bottom-color:var(--paint);}
+  .rail button.fin span.mark{background:var(--go);}
+  .rail button.now::after{
+    content:"";position:absolute;top:6px;left:50%;transform:translateX(9px);
+    width:3px;height:3px;border-radius:50%;background:var(--paint);
   }
 
-  main{flex:1;padding:18px 15px 90px;}
-  .day-panel{display:none;animation:fade .22s ease;}
-  .day-panel.active{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+  main{flex:1;padding:0 0 96px;}
+  .panel{display:none;}
+  .panel.on{display:block;}
 
-  .day-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;gap:10px;}
-  .day-focus{font-size:21px;font-weight:800;display:flex;align-items:center;gap:8px;}
-  .day-count{
-    font-size:11.5px;font-weight:700;color:var(--steel);
-    background:#e7dec9;padding:4px 9px;border-radius:20px;white-space:nowrap;
+  /* ---------- PROGRESS ---------- */
+  .meter{padding:20px 20px 4px;}
+  .meter-line{height:2px;background:var(--ridge);position:relative;overflow:hidden;}
+  .meter-line i{
+    position:absolute;inset:0 auto 0 0;background:var(--paint);width:0%;
+    transition:width .3s ease;display:block;
   }
-  .progress-wrap{height:7px;background:var(--line);border-radius:5px;overflow:hidden;margin-bottom:6px;}
-  .progress-bar{height:100%;background:linear-gradient(90deg,var(--rust),var(--rust-bright));width:0%;transition:width .3s;border-radius:5px;}
-  .progress-text{font-size:11px;color:var(--steel-soft);font-weight:600;margin-bottom:18px;}
+  .meter-txt{
+    margin-top:10px;font-size:13.5px;color:var(--steel);font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
+  .meter-txt.full{color:var(--go);}
 
-  .section-label{
-    font-size:10.5px;text-transform:uppercase;letter-spacing:2.5px;color:var(--rust-dim);
-    font-weight:800;margin:22px 0 9px;display:flex;align-items:center;gap:8px;
+  /* ---------- SECTION ---------- */
+  .sec{padding:30px 20px 0;}
+  .sec-h{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:6px;padding-bottom:11px;border-bottom:1px solid var(--ridge);
   }
-  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
-  .section-label:first-of-type{margin-top:0;}
+  .sec-name{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--chalk);}
+  .sec-note{font-size:12.5px;color:var(--steel-dim);font-weight:600;}
 
-  /* EXERCISE CARD */
-  .ex-card{
-    background:var(--card);border:1px solid var(--line);border-radius:12px;
-    padding:12px 13px;margin-bottom:8px;transition:background .2s,border-color .2s;
+  /* ---------- EXERCISE ROW ---------- */
+  .row{
+    display:flex;gap:15px;padding:20px 0;border-bottom:1px solid rgba(44,49,58,.7);
+    position:relative;
   }
-  .ex-card.checked{background:#eef4ee;border-color:#c3d9c6;}
-  .ex-top{display:flex;align-items:flex-start;gap:11px;}
-  .ex-check{
-    width:26px;height:26px;border-radius:50%;border:2px solid var(--steel);flex:0 0 26px;
+  .row:last-of-type{border-bottom:none;}
+  .tick{
+    width:34px;height:34px;flex:0 0 34px;border-radius:10px;
+    border:1.5px solid var(--ridge);background:var(--deck);
     display:flex;align-items:center;justify-content:center;cursor:pointer;
-    font-size:15px;color:transparent;font-weight:900;margin-top:1px;transition:all .15s;
+    color:transparent;font-size:17px;font-weight:900;margin-top:2px;
+    transition:background .15s,border-color .15s;
   }
-  .ex-check.on{background:var(--ok);border-color:var(--ok);color:#fff;}
-  .ex-info{flex:1;min-width:0;}
-  .ex-name-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:4px;}
-  .ex-name{font-weight:700;font-size:14.5px;margin:0;}
-  .ex-card.checked .ex-name{text-decoration:line-through;color:#5a6b5c;}
-  .swapped-flag{
-    font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
-    color:var(--rust-dim);background:#fbe6da;padding:2px 6px;border-radius:4px;
+  .tick.on{background:var(--go);border-color:var(--go);color:#0f1a12;}
+  .body{flex:1;min-width:0;}
+  .line1{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .nm{font-size:18.5px;font-weight:700;letter-spacing:-.3px;line-height:1.3;margin:0;color:var(--chalk);}
+  .row.done .nm{color:var(--steel-dim);text-decoration:line-through;}
+  .load{
+    text-align:right;flex:0 0 auto;font-variant-numeric:tabular-nums;
   }
-  .eq-tag{
-    font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
-    padding:2px 7px;border-radius:5px;color:#fff;white-space:nowrap;
+  .load .big{font-size:19px;font-weight:800;letter-spacing:-.4px;line-height:1;display:block;color:var(--chalk);}
+  .load.wide{max-width:132px;}
+  .load.wide .big{font-size:14px;font-weight:700;line-height:1.35;letter-spacing:0;color:var(--steel);}
+  .load .sml{font-size:12px;color:var(--steel-dim);font-weight:600;margin-top:5px;display:block;}
+  .gear{
+    display:inline-flex;align-items:center;gap:6px;margin-top:8px;
+    font-size:13px;color:var(--steel);font-weight:600;
   }
-  .eq-machine{background:var(--eq-machine);}
-  .eq-db{background:var(--eq-db);}
-  .eq-barbell{background:var(--eq-barbell);}
-  .eq-cable{background:var(--eq-cable);}
-  .eq-body{background:var(--eq-body);}
-  .eq-cardio{background:var(--eq-cardio);}
-  .ex-meta{font-size:12.5px;color:var(--steel);font-weight:600;}
-  .ex-cue{font-size:11.5px;color:var(--rust-dim);margin-top:5px;line-height:1.4;}
-  .ex-actions{display:flex;gap:6px;margin-top:9px;}
-  .btn-sm{
-    flex:1;display:flex;align-items:center;justify-content:center;gap:4px;
-    font-size:11.5px;font-weight:700;text-decoration:none;padding:7px 6px;border-radius:7px;
-    border:1px solid var(--line);color:var(--steel);background:#fff;cursor:pointer;
-    font-family:inherit;
+  .gear i{width:10px;height:10px;border-radius:3px;display:inline-block;flex:0 0 10px;}
+  .swapped{color:var(--paint);font-weight:700;}
+  .cue{font-size:14px;color:var(--steel);line-height:1.55;margin-top:9px;}
+  .acts{display:flex;gap:20px;margin-top:13px;}
+  .acts a,.acts button{
+    background:none;border:none;padding:0;font-family:inherit;cursor:pointer;
+    font-size:13.5px;font-weight:700;color:var(--steel);text-decoration:none;
+    border-bottom:1px solid var(--ridge);padding-bottom:3px;
   }
-  .btn-sm:active{background:#f3ece0;}
-  .btn-sm.video{color:var(--rust-dim);border-color:#f0d3c2;background:#fdf3ec;}
-  .btn-sm.swap{color:#2f4b7c;border-color:#cddaeb;background:#f2f6fc;}
+  .acts a:active,.acts button:active{color:var(--chalk);border-color:var(--steel);}
+  .acts .sw{color:var(--paint);border-color:rgba(232,179,60,.35);}
 
-  /* ALTERNATES PANEL */
-  .alts{
-    display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);
-  }
-  .alts.open{display:block;}
-  .alts-title{
-    font-size:10px;text-transform:uppercase;letter-spacing:1.5px;
-    color:var(--steel-soft);font-weight:800;margin-bottom:7px;
-  }
-  .alt-row{
-    display:flex;align-items:center;gap:8px;padding:8px 9px;margin-bottom:5px;
-    background:#fff;border:1px solid var(--line-soft);border-radius:8px;cursor:pointer;
-  }
-  .alt-row:active{background:#f4eee2;}
-  .alt-row.current{border-color:var(--rust);background:#fdf3ec;}
-  .alt-name{flex:1;font-size:12.5px;font-weight:600;}
-  .alt-why{font-size:10.5px;color:var(--steel-soft);display:block;margin-top:2px;font-weight:400;}
-  .alt-pick{
-    font-size:9.5px;font-weight:800;color:var(--rust);text-transform:uppercase;letter-spacing:.5px;
-  }
+  /* compact rows for warmup / cooldown */
+  .sec.sub .nm{font-size:16.5px;font-weight:650;}
+  .sec.sub .row{padding:15px 0;}
+  .sec.sub .tick{width:30px;height:30px;flex:0 0 30px;border-radius:9px;font-size:15px;}
+  .sec.sub .load .big{font-size:15px;color:var(--steel);}
 
-  /* REST TIMER BAR */
-  .timer-bar{
+  /* ---------- SWAP DRAWER ---------- */
+  .drawer{display:none;margin-top:11px;border-left:2px solid var(--ridge);padding-left:12px;}
+  .drawer.open{display:block;}
+  .drawer-h{font-size:11.5px;color:var(--steel-dim);font-weight:700;margin-bottom:8px;}
+  .opt{
+    display:flex;align-items:center;gap:11px;padding:13px 0;cursor:pointer;
+    border-bottom:1px solid rgba(44,49,58,.5);
+  }
+  .opt:last-child{border-bottom:none;}
+  .opt-nm{flex:1;font-size:15px;font-weight:600;line-height:1.35;color:var(--chalk);}
+  .opt-why{display:block;font-size:12.5px;color:var(--steel-dim);font-weight:500;margin-top:4px;}
+  .opt.cur .opt-nm{color:var(--paint);}
+  .opt-dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;}
+
+  /* ---------- REST DAY ---------- */
+  .rest{padding:80px 28px;text-align:center;}
+  .rest h2{font-size:34px;font-weight:800;letter-spacing:-1px;margin:0 0 12px;}
+  .rest p{color:var(--steel);font-size:14px;line-height:1.65;margin:0;}
+
+  /* ---------- FOOT ---------- */
+  .foot{display:flex;gap:20px;padding:26px 20px 8px;}
+  .foot button{
+    background:none;border:none;padding:0;font-family:inherit;cursor:pointer;
+    font-size:12px;font-weight:700;color:var(--steel-dim);
+    border-bottom:1px solid var(--ridge);padding-bottom:2px;
+  }
+  .key{
+    display:flex;flex-wrap:wrap;gap:8px 14px;padding:20px 20px 28px;
+    border-top:1px solid var(--ridge);margin-top:22px;
+  }
+  .key span{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--steel-dim);font-weight:600;}
+  .key i{width:8px;height:8px;border-radius:2px;}
+
+  /* ---------- REST TIMER ---------- */
+  .timer{
     position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-    width:100%;max-width:480px;background:var(--ink);color:#fff;
-    padding:11px 16px calc(11px + env(safe-area-inset-bottom));
-    display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:40;
-    box-shadow:0 -4px 20px rgba(0,0,0,.25);
+    width:100%;max-width:480px;background:var(--deck);border-top:1px solid var(--ridge);
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));z-index:40;
   }
-  .timer-display{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;min-width:56px;}
-  .timer-display.running{color:var(--rust-bright);}
-  .timer-btns{display:flex;gap:6px;flex:1;justify-content:flex-end;}
-  .timer-btn{
-    background:#332a22;border:none;color:#e8e0d2;font-size:12px;font-weight:700;
-    padding:8px 11px;border-radius:7px;cursor:pointer;font-family:inherit;
+  .timer.live{background:var(--deck-2);border-top-color:var(--paint);}
+  .timer-drain{
+    position:absolute;top:0;left:0;height:2px;background:var(--paint);width:0%;
   }
-  .timer-btn.primary{background:var(--rust);color:#fff;}
-  .timer-label{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8f8779;font-weight:700;}
+  .timer-in{display:flex;align-items:center;gap:14px;}
+  .clock{
+    font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px;
+    min-width:74px;color:var(--steel);
+  }
+  .timer.live .clock{color:var(--paint);}
+  .presets{display:flex;gap:7px;flex:1;}
+  .presets button{
+    flex:1;background:none;border:1px solid var(--ridge);color:var(--steel);
+    font-size:12px;font-weight:700;padding:9px 0;border-radius:8px;cursor:pointer;font-family:inherit;
+    font-variant-numeric:tabular-nums;
+  }
+  .presets button.sel{border-color:var(--steel-dim);color:var(--chalk);}
+  .go{
+    background:var(--paint);border:none;color:#1a1408;font-size:13px;font-weight:800;
+    padding:10px 18px;border-radius:8px;cursor:pointer;font-family:inherit;flex:0 0 auto;
+  }
+  .timer.live .go{background:var(--ridge);color:var(--chalk);}
 
-  /* REST DAY */
-  .rest-day{text-align:center;padding:64px 24px;}
-  .rest-day .big{font-size:52px;margin-bottom:8px;}
-  .rest-day .day-focus{justify-content:center;margin-bottom:8px;}
-  .rest-day p{color:var(--steel);font-size:14px;line-height:1.6;}
-
-  .day-foot{display:flex;gap:8px;margin-top:20px;}
-  .foot-btn{
-    flex:1;background:none;border:1px solid var(--line);color:var(--steel);
-    font-size:12px;font-weight:600;padding:10px;border-radius:22px;cursor:pointer;font-family:inherit;
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
   }
-  .foot-btn:active{background:#e7dec9;}
-
-  .legend{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;padding:4px 16px 6px;}
-  .legend span{
-    font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
-    color:var(--steel);display:flex;align-items:center;gap:4px;
-  }
-  .legend span i{width:9px;height:9px;border-radius:2px;display:inline-block;}
-  footer{text-align:center;font-size:10.5px;color:#8a8477;padding:6px 16px 16px;line-height:1.5;}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <p class="eyebrow">Belly Fat Loss · Lean Body</p>
-    <h1>Weekly Workout</h1>
-    <div class="week-strip" id="weekStrip"></div>
-    <p class="week-note" id="weekNote">—</p>
-  </header>
-
-  <nav class="days" id="dayNav"></nav>
-  <main id="mainPanels"></main>
-
-  <div class="legend">
-    <span><i style="background:#3557a0"></i>Machine</span>
-    <span><i style="background:#a0522d"></i>Dumbbell</span>
-    <span><i style="background:#5a3d8a"></i>Barbell</span>
-    <span><i style="background:#0f766e"></i>Cable</span>
-    <span><i style="background:#8a6d1f"></i>Bodyweight</span>
-    <span><i style="background:#b03a48"></i>Cardio</span>
+  <div class="hero">
+    <p class="hero-day" id="heroDay">—</p>
+    <h1 class="hero-focus" id="heroFocus">—</h1>
+    <div class="hero-sub" id="heroSub"></div>
+    <div class="week" id="week"></div>
   </div>
-  <footer>Tap <b>Swap</b> if a machine is busy or missing.<br>Checkmarks save automatically each day.</footer>
 
-  <div class="timer-bar">
-    <div>
-      <div class="timer-label">Rest</div>
-      <div class="timer-display" id="timerDisp">1:00</div>
-    </div>
-    <div class="timer-btns">
-      <button class="timer-btn" onclick="setTimer(60)">60s</button>
-      <button class="timer-btn" onclick="setTimer(90)">90s</button>
-      <button class="timer-btn" onclick="setTimer(120)">2m</button>
-      <button class="timer-btn primary" id="timerToggle" onclick="toggleTimer()">Start</button>
+  <nav class="rail" id="rail"></nav>
+  <main id="panels"></main>
+
+  <div class="key">
+    <span><i style="background:#c8322b"></i>Barbell</span>
+    <span><i style="background:#3272bd"></i>Machine</span>
+    <span><i style="background:#d9a327"></i>Dumbbell</span>
+    <span><i style="background:#3f8f5c"></i>Cable</span>
+    <span><i style="background:#d8d4c8"></i>Bodyweight</span>
+    <span><i style="background:#8a919b"></i>Cardio</span>
+  </div>
+
+  <div class="timer" id="timerBar">
+    <div class="timer-drain" id="drain"></div>
+    <div class="timer-in">
+      <div class="clock" id="clock">1:00</div>
+      <div class="presets">
+        <button onclick="setTimer(60)" id="p60" class="sel">60s</button>
+        <button onclick="setTimer(90)" id="p90">90s</button>
+        <button onclick="setTimer(120)" id="p120">2m</button>
+      </div>
+      <button class="go" id="goBtn" onclick="toggleTimer()">Start</button>
     </div>
   </div>
 </div>
 
 <script>
-/* eq: machine | db | barbell | cable | body | cardio
-   alts: alternates — same muscle, different equipment */
 const PLAN = {
-  mon:{label:"Mon",focus:"Chest",emoji:"💪",lift:[
+  mon:{label:"Mon",focus:"Chest",emoji:"💪",warmup:[
+    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Treadmill or bike — just raise body temp",s:"treadmill light warm up jog"},
+    {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosens shoulder joint before pressing",s:"standing arm circles shoulder warm up"},
+    {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Wakes up upper back so shoulders sit right",s:"resistance band pull apart"},
+    {n:"Push Up (bodyweight)",eq:"body",m:"10 easy reps",c:"Primes the chest — no weight, just movement",s:"bodyweight push up"},
+  ],
+    lift:[
     {n:"Flat Bench / DB Press",eq:"barbell",m:"10–15 × 3 · 1–2 min",c:"Bar to mid-chest, elbows ~45° from body",s:"flat barbell bench press",
      alts:[{n:"Flat DB Press",eq:"db",w:"More stretch, easier on shoulders",s:"flat dumbbell press"},
            {n:"Chest Press Machine",eq:"machine",w:"Safest, no spotter needed",s:"chest press machine"},
@@ -266,22 +282,35 @@ const PLAN = {
            {n:"Cable Fly",eq:"cable",w:"Constant tension throughout",s:"cable chest fly"}]},
     {n:"Decline Press",eq:"barbell",m:"10–15 × 3 · 1 min",c:"Bar to lower chest, controlled descent",s:"decline barbell bench press",
      alts:[{n:"Decline DB Press",eq:"db",w:"Better range of motion",s:"decline dumbbell press"},
-           {n:"Dips (chest lean)",eq:"body",w:"Lean forward to hit lower chest",s:"chest dips"}]},
+           {n:"Dips (chest lean)",eq:"body",w:"Lean forward to hit lower chest",s:"parallel bar chest dip"}]},
     {n:"Cable Cross",eq:"cable",m:"10–15 × 3 · 1 min",c:"Pull handles together in front, squeeze",s:"cable crossover chest",
-     alts:[{n:"Pec Deck",eq:"machine",w:"Same squeeze, fixed path",s:"pec deck machine"},
+     alts:[{n:"Pec Deck",eq:"machine",w:"Same squeeze, fixed path",s:"pec deck chest fly machine"},
            {n:"DB Flyes",eq:"db",w:"If cables are taken",s:"dumbbell chest fly"}]},
-    {n:"Push Ups",eq:"body",m:"To failure × 3 · 1 min",c:"Body straight, hands shoulder-width",s:"push up proper form",
+    {n:"Push Ups",eq:"body",m:"To failure × 3 · 1 min",c:"Body straight, hands shoulder-width",s:"standard push up",
      alts:[{n:"Knee Push Ups",eq:"body",w:"Easier regression",s:"knee push up"},
            {n:"Incline Push Ups",eq:"body",w:"Hands on bench, easier",s:"incline push up"}]}
-  ],cardio:[{n:"Treadmill",eq:"cardio",m:"15–20 min · moderate",c:"Brisk walk or light jog",s:"treadmill workout",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike"},{n:"Cross Trainer",eq:"cardio",w:"Full-body, low impact",s:"elliptical workout"}]}],
-   core:[{n:"Plank",eq:"body",m:"30–45 sec × 3",c:"Straight line head to heels",s:"plank exercise form",
-     alts:[{n:"Knee Plank",eq:"body",w:"Easier version",s:"knee plank"},{n:"Side Plank",eq:"body",w:"Hits obliques",s:"side plank"}]},
-     {n:"Crunches",eq:"body",m:"15–20 × 3",c:"Lift shoulders only, don't pull neck",s:"crunches abs exercise",
-     alts:[{n:"Cable Crunch",eq:"cable",w:"Add resistance as you progress",s:"cable crunch"},{n:"Bicycle Crunch",eq:"body",w:"Hits obliques too",s:"bicycle crunch"}]}]},
+  ],cardio:[{n:"Treadmill",eq:"cardio",m:"15–20 min · moderate",c:"Brisk walk or light jog",s:"treadmill steady state jog",
+     alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"},{n:"Cross Trainer",eq:"cardio",w:"Full-body, low impact",s:"elliptical cross trainer machine"}]}],
+   core:[{n:"Plank",eq:"body",m:"30–45 sec × 3",c:"Straight line head to heels",s:"forearm plank hold",
+     alts:[{n:"Knee Plank",eq:"body",w:"Easier version",s:"plank on knees modified"},{n:"Side Plank",eq:"body",w:"Hits obliques",s:"side plank hold obliques"}]},
+     {n:"Crunches",eq:"body",m:"15–20 × 3",c:"Lift shoulders only, don't pull neck",s:"floor abdominal crunch",
+     alts:[{n:"Cable Crunch",eq:"cable",w:"Add resistance as you progress",s:"kneeling cable crunch abs"},{n:"Bicycle Crunch",eq:"body",w:"Hits obliques too",s:"bicycle crunch obliques"}]}],
+cooldown:[
+    {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Forearm on frame, step through until you feel the chest open",s:"doorway chest stretch"},
+    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Pull arm across chest, keep shoulder down",s:"cross body shoulder stretch"},
+    {n:"Overhead Tricep Stretch",eq:"body",m:"30 sec each arm",c:"Elbow behind head, gentle pull",s:"overhead tricep stretch"},
+    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Relaxes the whole upper body to finish",s:"childs pose stretch"},
+  ],
+  },
 
-  tue:{label:"Tue",focus:"Back",emoji:"🎯",lift:[
-    {n:"Pull Ups",eq:"body",m:"To failure × 3 · 1 min",c:"Hands wider than shoulders, chin over bar",s:"pull up proper form",
+  tue:{label:"Tue",focus:"Back",emoji:"🎯",warmup:[
+    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Rowing or bike — gets blood to the back",s:"treadmill light warm up jog"},
+    {n:"Cat-Cow",eq:"body",m:"10 slow reps",c:"Mobilises the spine before rows and pulls",s:"cat cow spinal mobility"},
+    {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Activates rear delts and mid-back",s:"resistance band pull apart"},
+    {n:"Dead Hang",eq:"body",m:"20–30 sec",c:"Decompresses spine, preps lats and grip",s:"dead hang pull up bar"},
+  ],
+    lift:[
+    {n:"Pull Ups",eq:"body",m:"To failure × 3 · 1 min",c:"Hands wider than shoulders, chin over bar",s:"wide grip pull up",
      alts:[{n:"Assisted Pull Up",eq:"machine",w:"Machine helps with bodyweight",s:"assisted pull up machine"},
            {n:"Lat Pulldown (wide)",eq:"machine",w:"Same movement, scalable weight",s:"wide grip lat pulldown"},
            {n:"Negative Pull Ups",eq:"body",w:"Jump up, lower slowly",s:"negative pull up"}]},
@@ -294,20 +323,33 @@ const PLAN = {
     {n:"Single Arm Row DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Flat back, pull elbow past torso",s:"single arm dumbbell row",
      alts:[{n:"DB Bent Over Row",eq:"db",w:"Both arms at once",s:"dumbbell bent over row"},
            {n:"Machine Row",eq:"machine",w:"Fixed path, easier form",s:"seated row machine"}]},
-    {n:"T-Bar Row",eq:"barbell",m:"10–15 × 3 · 1 min",c:"Hinge at hips, flat back, pull to stomach",s:"t-bar row",
+    {n:"T-Bar Row",eq:"barbell",m:"10–15 × 3 · 1 min",c:"Hinge at hips, flat back, pull to stomach",s:"t-bar row landmine back",
      alts:[{n:"Landmine Row",eq:"barbell",w:"Same angle, one corner of bar",s:"landmine row"},
            {n:"Chest Supported Row",eq:"machine",w:"If lower back is tired",s:"chest supported row machine"}]},
     {n:"Face Pull",eq:"cable",m:"12–15 × 3 · 1 min",c:"Rope to eye level, elbows high — rear delts",s:"cable face pull rear delt",
-     alts:[{n:"Reverse Pec Deck",eq:"machine",w:"Same rear delt target",s:"reverse pec deck"},
+     alts:[{n:"Reverse Pec Deck",eq:"machine",w:"Same rear delt target",s:"reverse pec deck rear delt machine"},
            {n:"Bent Over Rear Delt Fly",eq:"db",w:"Dumbbell version",s:"bent over rear delt fly"}]}
-  ],cardio:[{n:"Cycling",eq:"cardio",m:"15–20 min · moderate",c:"Steady resistance",s:"stationary bike workout",
-     alts:[{n:"Treadmill",eq:"cardio",w:"Higher calorie burn",s:"treadmill workout"},{n:"Rowing Machine",eq:"cardio",w:"Also works the back",s:"rowing machine"}]}],
-   core:[{n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying leg raises abs",
-     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder, from a bar",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on lower back",s:"reverse crunch"}]},
-     {n:"Russian Twists",eq:"body",m:"20 × 3 (10/side)",c:"Lean back slightly, rotate from torso",s:"russian twist exercise",
-     alts:[{n:"Cable Woodchopper",eq:"cable",w:"Standing rotation, more load",s:"cable woodchopper"},{n:"Side Plank",eq:"body",w:"Static oblique work",s:"side plank"}]}]},
+  ],cardio:[{n:"Cycling",eq:"cardio",m:"15–20 min · moderate",c:"Steady resistance",s:"stationary bike cardio session",
+     alts:[{n:"Treadmill",eq:"cardio",w:"Higher calorie burn",s:"treadmill steady state jog"},{n:"Rowing Machine",eq:"cardio",w:"Also works the back",s:"rowing machine erg"}]}],
+   core:[{n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying straight leg raise abs",
+     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder, from a bar",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on lower back",s:"reverse crunch lower abs"}]},
+     {n:"Russian Twists",eq:"body",m:"20 × 3 (10/side)",c:"Lean back slightly, rotate from torso",s:"seated russian twist obliques",
+     alts:[{n:"Cable Woodchopper",eq:"cable",w:"Standing rotation, more load",s:"cable woodchopper rotation"},{n:"Side Plank",eq:"body",w:"Static oblique work",s:"side plank hold obliques"}]}],
+cooldown:[
+    {n:"Lat Stretch (hang or wall)",eq:"body",m:"30 sec each side",c:"Hold bar or wall, sink hips back to stretch the lat",s:"lat stretch"},
+    {n:"Child's Pose (side reach)",eq:"body",m:"30 sec each side",c:"Walk hands to one side for a deeper lat stretch",s:"side child pose stretch"},
+    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Opens the rear delts you just worked",s:"cross body shoulder stretch"},
+    {n:"Bicep Wall Stretch",eq:"body",m:"30 sec each arm",c:"Palm on wall, turn body away",s:"bicep wall stretch"},
+  ],
+  },
 
-  wed:{label:"Wed",focus:"Shoulders",emoji:"🔺",lift:[
+  wed:{label:"Wed",focus:"Shoulders",emoji:"🔺",warmup:[
+    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Cross trainer works the arms too",s:"treadmill light warm up jog"},
+    {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Small to large circles, both ways",s:"standing arm circles shoulder warm up"},
+    {n:"Shoulder Dislocates",eq:"body",m:"10 slow reps",c:"Broomstick or band, wide grip overhead",s:"shoulder dislocates resistance band mobility"},
+    {n:"Empty Press",eq:"db",m:"15 reps light",c:"Very light DBs before working sets",s:"light dumbbell shoulder press warm up set"},
+  ],
+    lift:[
     {n:"Overhead Press DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Press straight up, don't flare elbows wide",s:"dumbbell shoulder press",
      alts:[{n:"Shoulder Press Machine",eq:"machine",w:"Fixed path, safer heavy",s:"shoulder press machine"},
            {n:"Barbell Overhead Press",eq:"barbell",w:"Heavier loading",s:"barbell overhead press"},
@@ -327,14 +369,27 @@ const PLAN = {
     {n:"Shrugs DB",eq:"db",m:"12–15 × 3 · 1 min",c:"Lift shoulders straight up to ears, no rolling",s:"dumbbell shrugs traps",
      alts:[{n:"Barbell Shrugs",eq:"barbell",w:"Heavier loading",s:"barbell shrugs"},
            {n:"Cable Shrugs",eq:"cable",w:"Constant tension",s:"cable shrugs"}]}
-  ],cardio:[{n:"Cross Trainer",eq:"cardio",m:"15–20 min · moderate",c:"Elliptical — use the handles",s:"cross trainer elliptical workout",
-     alts:[{n:"Treadmill",eq:"cardio",w:"Higher burn",s:"treadmill workout"},{n:"Cycling",eq:"cardio",w:"Legs already fresh today",s:"stationary bike"}]}],
-   core:[{n:"Plank",eq:"body",m:"45 sec × 3",c:"Straight line head to heels",s:"plank exercise form",
-     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank"},{n:"Plank Shoulder Taps",eq:"body",w:"Adds anti-rotation",s:"plank shoulder tap"}]},
-     {n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"crunches abs exercise",
-     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted progression",s:"cable crunch"},{n:"Bicycle Crunch",eq:"body",w:"Obliques too",s:"bicycle crunch"}]}]},
+  ],cardio:[{n:"Cross Trainer",eq:"cardio",m:"15–20 min · moderate",c:"Elliptical — use the handles",s:"elliptical cross trainer machine",
+     alts:[{n:"Treadmill",eq:"cardio",w:"Higher burn",s:"treadmill steady state jog"},{n:"Cycling",eq:"cardio",w:"Legs already fresh today",s:"stationary bike cycling"}]}],
+   core:[{n:"Plank",eq:"body",m:"45 sec × 3",c:"Straight line head to heels",s:"forearm plank hold",
+     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank hold obliques"},{n:"Plank Shoulder Taps",eq:"body",w:"Adds anti-rotation",s:"plank shoulder taps core"}]},
+     {n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"floor abdominal crunch",
+     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted progression",s:"kneeling cable crunch abs"},{n:"Bicycle Crunch",eq:"body",w:"Obliques too",s:"bicycle crunch obliques"}]}],
+cooldown:[
+    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Pull arm across chest, keep shoulder down",s:"cross body shoulder stretch"},
+    {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Counters all the pressing",s:"doorway chest stretch"},
+    {n:"Neck / Trap Stretch",eq:"body",m:"30 sec each side",c:"Ear toward shoulder — important after shrugs",s:"neck trap stretch"},
+    {n:"Behind-Back Shoulder Stretch",eq:"body",m:"30 sec",c:"Clasp hands behind back, lift gently",s:"behind back shoulder stretch"},
+  ],
+  },
 
-  thu:{label:"Thu",focus:"Bi / Tri",emoji:"💥",lift:[
+  thu:{label:"Thu",focus:"Bi / Tri",emoji:"💥",warmup:[
+    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Any machine — raise body temp",s:"treadmill light warm up jog"},
+    {n:"Arm Swings",eq:"body",m:"30 sec",c:"Loose swings across body and open",s:"arm swings across chest warm up"},
+    {n:"Wrist Circles",eq:"body",m:"20 sec each way",c:"Important before curls and pushdowns",s:"wrist circles mobility warm up"},
+    {n:"Light Curl + Pushdown",eq:"cable",m:"15 reps each",c:"Very light set to pump blood into arms",s:"light cable curl pushdown warm up set"},
+  ],
+    lift:[
     {n:"Barbell Curl",eq:"barbell",m:"10–15 × 3 · 1 min",c:"Elbows pinned to sides, no swinging",s:"barbell bicep curl",
      alts:[{n:"EZ Bar Curl",eq:"barbell",w:"Easier on wrists",s:"ez bar curl"},
            {n:"DB Curl",eq:"db",w:"Fixes side-to-side imbalance",s:"dumbbell bicep curl"},
@@ -342,28 +397,41 @@ const PLAN = {
     {n:"Hammer Curl DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Palms face each other throughout",s:"hammer curl dumbbell",
      alts:[{n:"Rope Hammer Curl",eq:"cable",w:"Constant tension",s:"rope hammer curl"},
            {n:"Cross Body Curl",eq:"db",w:"More brachialis",s:"cross body hammer curl"}]},
-    {n:"Preacher Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Arm flat on pad, no momentum",s:"preacher curl",
-     alts:[{n:"Concentration Curl",eq:"db",w:"Same strict isolation",s:"concentration curl"},
+    {n:"Preacher Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Arm flat on pad, no momentum",s:"preacher curl bench biceps",
+     alts:[{n:"Concentration Curl",eq:"db",w:"Same strict isolation",s:"seated dumbbell concentration curl"},
            {n:"Incline DB Curl",eq:"db",w:"Bigger stretch on bicep",s:"incline dumbbell curl"},
-           {n:"Spider Curl",eq:"db",w:"Chest on incline bench",s:"spider curl"}]},
+           {n:"Spider Curl",eq:"db",w:"Chest on incline bench",s:"spider curl incline bench biceps"}]},
     {n:"Tricep Pushdown Cable",eq:"cable",m:"10–15 × 3 · 1 min",c:"Elbows pinned to sides, full extension",s:"tricep pushdown cable",
      alts:[{n:"Rope Pushdown",eq:"cable",w:"Spread rope at bottom",s:"rope tricep pushdown"},
            {n:"Bench Dips",eq:"body",w:"No cable needed",s:"bench dips triceps"},
            {n:"Diamond Push Ups",eq:"body",w:"Bodyweight option",s:"diamond push ups"}]},
     {n:"Overhead Extension DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Elbows in, lower behind head slowly",s:"overhead dumbbell tricep extension",
      alts:[{n:"Cable Overhead Ext.",eq:"cable",w:"Constant tension",s:"cable overhead tricep extension"},
-           {n:"Skull Crushers",eq:"barbell",w:"Lying EZ-bar version",s:"skull crushers"}]},
+           {n:"Skull Crushers",eq:"barbell",w:"Lying EZ-bar version",s:"ez bar skull crusher lying triceps extension"}]},
     {n:"Tricep Single Hand DB",eq:"db",m:"10–15 × 3 · 1 min",c:"One arm overhead, elbow stays fixed",s:"single arm dumbbell tricep extension",
      alts:[{n:"Tricep Kickback",eq:"db",w:"Peak contraction focus",s:"tricep kickback"},
            {n:"Single Arm Pushdown",eq:"cable",w:"Cable version",s:"single arm tricep pushdown"}]}
-  ],cardio:[{n:"Treadmill",eq:"cardio",m:"15–20 min · moderate",c:"Brisk walk or light jog",s:"treadmill workout",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower impact",s:"stationary bike"},{n:"Cross Trainer",eq:"cardio",w:"Full body",s:"elliptical workout"}]}],
-   core:[{n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying leg raises abs",
-     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder version",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on back",s:"reverse crunch"}]},
-     {n:"Plank",eq:"body",m:"30 sec × 3",c:"Straight line head to heels",s:"plank exercise form",
-     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank"},{n:"Knee Plank",eq:"body",w:"Easier",s:"knee plank"}]}]},
+  ],cardio:[{n:"Treadmill",eq:"cardio",m:"15–20 min · moderate",c:"Brisk walk or light jog",s:"treadmill steady state jog",
+     alts:[{n:"Cycling",eq:"cardio",w:"Lower impact",s:"stationary bike cycling"},{n:"Cross Trainer",eq:"cardio",w:"Full body",s:"elliptical cross trainer machine"}]}],
+   core:[{n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying straight leg raise abs",
+     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder version",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on back",s:"reverse crunch lower abs"}]},
+     {n:"Plank",eq:"body",m:"30 sec × 3",c:"Straight line head to heels",s:"forearm plank hold",
+     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank hold obliques"},{n:"Knee Plank",eq:"body",w:"Easier",s:"plank on knees modified"}]}],
+cooldown:[
+    {n:"Overhead Tricep Stretch",eq:"body",m:"30 sec each arm",c:"Elbow behind head, gentle pull down",s:"overhead tricep stretch"},
+    {n:"Bicep Wall Stretch",eq:"body",m:"30 sec each arm",c:"Palm flat on wall, rotate body away",s:"bicep wall stretch"},
+    {n:"Wrist Flexor Stretch",eq:"body",m:"20 sec each way",c:"Pull fingers back, then down — after all that gripping",s:"wrist flexor stretch"},
+    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Loosens shoulders after arm work",s:"cross body shoulder stretch"},
+  ],
+  },
 
-  fri:{label:"Fri",focus:"Legs",emoji:"🦵",lift:[
+  fri:{label:"Fri",focus:"Legs",emoji:"🦵",warmup:[
+    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Bike is ideal — warms hips and knees",s:"treadmill light warm up jog"},
+    {n:"Leg Swings",eq:"body",m:"12 each leg, both ways",c:"Front-to-back and side-to-side, hold support",s:"standing leg swings hip mobility"},
+    {n:"Bodyweight Squats",eq:"body",m:"15 reps × 2",c:"Full depth, no weight — grooves the pattern",s:"bodyweight air squat"},
+    {n:"Walking Knee Hugs",eq:"body",m:"10 each leg",c:"Opens hips and glutes before squatting",s:"walking knee hug dynamic stretch"},
+  ],
+    lift:[
     {n:"Squats",eq:"barbell",m:"10–15 × 3 · 1 min",c:"Chest up, knees don't cave inward",s:"barbell back squat",
      alts:[{n:"Goblet Squat",eq:"db",w:"Easier to learn, upright torso",s:"goblet squat"},
            {n:"Hack Squat",eq:"machine",w:"Back supported, quad focus",s:"hack squat machine"},
@@ -386,285 +454,314 @@ const PLAN = {
            {n:"Seated Leg Curl",eq:"machine",w:"If lower back is sore",s:"seated leg curl machine"}]},
     {n:"Lying Leg Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Controlled curl, no hip lift off pad",s:"lying leg curl machine",
      alts:[{n:"Seated Leg Curl",eq:"machine",w:"Same muscle, seated",s:"seated leg curl machine"},
-           {n:"Nordic Curl",eq:"body",w:"Bodyweight, very hard",s:"nordic hamstring curl"},
+           {n:"Nordic Curl",eq:"body",w:"Bodyweight, very hard",s:"nordic hamstring curl eccentric"},
            {n:"DB Leg Curl",eq:"db",w:"DB between feet, lying",s:"dumbbell leg curl"}]},
     {n:"Standing Calf Raises",eq:"machine",m:"15–30 × 3 · 1 min",c:"Full stretch down, pause squeeze at top",s:"standing calf raise machine",
      alts:[{n:"Seated Calf Raise",eq:"machine",w:"Hits soleus more",s:"seated calf raise machine"},
            {n:"DB Calf Raise",eq:"db",w:"On a step, hold DBs",s:"dumbbell calf raise"},
            {n:"Leg Press Calf Raise",eq:"machine",w:"On the press platform",s:"leg press calf raise"}]}
-  ],cardio:[{n:"Cycling",eq:"cardio",m:"15–20 min · moderate",c:"Steady resistance",s:"stationary bike workout",
-     alts:[{n:"Cross Trainer",eq:"cardio",w:"Lower leg fatigue",s:"elliptical workout"},{n:"Incline Walk",eq:"cardio",w:"Easy on tired legs",s:"incline treadmill walk"}]}],
-   core:[{n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"crunches abs exercise",
-     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted",s:"cable crunch"},{n:"Bicycle Crunch",eq:"body",w:"Obliques",s:"bicycle crunch"}]}]},
+  ],cardio:[{n:"Cycling",eq:"cardio",m:"15–20 min · moderate",c:"Steady resistance",s:"stationary bike cardio session",
+     alts:[{n:"Cross Trainer",eq:"cardio",w:"Lower leg fatigue",s:"elliptical cross trainer machine"},{n:"Incline Walk",eq:"cardio",w:"Easy on tired legs",s:"incline treadmill walking"}]}],
+   core:[{n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"floor abdominal crunch",
+     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted",s:"kneeling cable crunch abs"},{n:"Bicycle Crunch",eq:"body",w:"Obliques",s:"bicycle crunch obliques"}]}],
+cooldown:[
+    {n:"Standing Quad Stretch",eq:"body",m:"30 sec each leg",c:"Heel to glute, knees together, hips forward",s:"standing quad stretch"},
+    {n:"Seated Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Reach toward toes, flat back not rounded",s:"seated hamstring stretch"},
+    {n:"Figure-4 Glute Stretch",eq:"body",m:"30 sec each side",c:"Ankle over knee, lying or seated",s:"figure four glute stretch"},
+    {n:"Calf Wall Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down, lean into wall",s:"calf wall stretch"},
+    {n:"Hip Flexor Lunge Stretch",eq:"body",m:"30 sec each side",c:"Half-kneel, push hips forward — key for desk workers",s:"kneeling hip flexor stretch"},
+  ],
+  },
 
   sat:{label:"Sat",focus:"HIIT + Core",emoji:"🔥",lift:[],
+  warmup:[
+    {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't sprint cold",s:"treadmill brisk walk warm up"},
+    {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Hips loose before intervals",s:"standing leg swings hip mobility"},
+    {n:"High Knees",eq:"body",m:"30 sec × 2",c:"Light bounce, prepares for fast pace",s:"high knees running in place"},
+  ],
    cardio:[
     {n:"Treadmill Intervals",eq:"cardio",m:"1 min fast / 1 min walk × 8–10",c:"Push hard on fast minute, full recovery on walk",s:"treadmill HIIT intervals",
      alts:[{n:"Bike Sprints",eq:"cardio",w:"30s sprint / 90s easy",s:"stationary bike HIIT"},
            {n:"Rowing Intervals",eq:"cardio",w:"Full body, low impact",s:"rowing machine HIIT"},
-           {n:"Stair Climber",eq:"cardio",w:"Steady high burn",s:"stair climber workout"}]},
-    {n:"Incline Walk finisher",eq:"cardio",m:"10 min · moderate incline",c:"Steady pace, upright posture",s:"incline treadmill walk",
-     alts:[{n:"Cross Trainer",eq:"cardio",w:"Low impact cooldown",s:"elliptical workout"},{n:"Easy Cycling",eq:"cardio",w:"Flush the legs",s:"stationary bike"}]}],
+           {n:"Stair Climber",eq:"cardio",w:"Steady high burn",s:"stair climber machine cardio"}]},
+    {n:"Incline Walk finisher",eq:"cardio",m:"10 min · moderate incline",c:"Steady pace, upright posture",s:"incline treadmill walking",
+     alts:[{n:"Cross Trainer",eq:"cardio",w:"Low impact cooldown",s:"elliptical cross trainer machine"},{n:"Easy Cycling",eq:"cardio",w:"Flush the legs",s:"stationary bike cycling"}]}],
    core:[
-    {n:"Plank",eq:"body",m:"45 sec × 3",c:"Straight line head to heels",s:"plank exercise form",
-     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank"},{n:"Plank Shoulder Taps",eq:"body",w:"Anti-rotation",s:"plank shoulder tap"}]},
-    {n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"crunches abs exercise",
-     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted",s:"cable crunch"},{n:"Bicycle Crunch",eq:"body",w:"Obliques",s:"bicycle crunch"}]},
-    {n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying leg raises abs",
-     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on back",s:"reverse crunch"}]},
-    {n:"Russian Twists",eq:"body",m:"20 × 3 (10/side)",c:"Lean back slightly, rotate from torso",s:"russian twist exercise",
-     alts:[{n:"Cable Woodchopper",eq:"cable",w:"Standing, more load",s:"cable woodchopper"},{n:"Mountain Climbers",eq:"body",w:"Adds cardio",s:"mountain climbers"}]}]},
+    {n:"Plank",eq:"body",m:"45 sec × 3",c:"Straight line head to heels",s:"forearm plank hold",
+     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank hold obliques"},{n:"Plank Shoulder Taps",eq:"body",w:"Anti-rotation",s:"plank shoulder taps core"}]},
+    {n:"Crunches",eq:"body",m:"20 × 3",c:"Lift shoulders only, don't pull neck",s:"floor abdominal crunch",
+     alts:[{n:"Cable Crunch",eq:"cable",w:"Weighted",s:"kneeling cable crunch abs"},{n:"Bicycle Crunch",eq:"body",w:"Obliques",s:"bicycle crunch obliques"}]},
+    {n:"Leg Raises",eq:"body",m:"15 × 3",c:"Lower legs slow, don't arch lower back",s:"lying straight leg raise abs",
+     alts:[{n:"Hanging Leg Raise",eq:"body",w:"Harder",s:"hanging leg raise"},{n:"Reverse Crunch",eq:"body",w:"Easier on back",s:"reverse crunch lower abs"}]},
+    {n:"Russian Twists",eq:"body",m:"20 × 3 (10/side)",c:"Lean back slightly, rotate from torso",s:"seated russian twist obliques",
+     alts:[{n:"Cable Woodchopper",eq:"cable",w:"Standing, more load",s:"cable woodchopper rotation"},{n:"Mountain Climbers",eq:"body",w:"Adds cardio",s:"mountain climbers core exercise"}]}],
+cooldown:[
+    {n:"Standing Quad Stretch",eq:"body",m:"30 sec each leg",c:"Heel to glute after all that running",s:"standing quad stretch"},
+    {n:"Calf Wall Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down, lean forward",s:"calf wall stretch"},
+    {n:"Seated Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back, reach toward toes",s:"seated hamstring stretch"},
+    {n:"Cobra / Spine Extension",eq:"body",m:"30 sec",c:"Opens the front body after core work",s:"cobra stretch"},
+  ],
+  },
 
   sun:{label:"Sun",focus:"Rest",emoji:"😴",rest:true}
 };
 
-const EQ_LABEL={machine:"Machine",db:"Dumbbell",barbell:"Barbell",cable:"Cable",body:"Bodyweight",cardio:"Cardio"};
+
+const PLATE={barbell:"#c8322b",machine:"#3272bd",db:"#d9a327",cable:"#3f8f5c",body:"#d8d4c8",cardio:"#8a919b"};
+const GEAR={machine:"Machine",db:"Dumbbell",barbell:"Barbell",cable:"Cable",body:"Bodyweight",cardio:"Cardio"};
+const SEC={warmup:["Warm up","move, don't hold"],lift:["Lift",""],cardio:["Cardio",""],core:["Core",""],cooldown:["Cool down","hold each 30s"]};
+const SECS=["warmup","lift","cardio","core","cooldown"];
 const order=["mon","tue","wed","thu","fri","sat","sun"];
-const nav=document.getElementById("dayNav");
-const main=document.getElementById("mainPanels");
+const rail=document.getElementById("rail"), panels=document.getElementById("panels");
 const todayIdx=(new Date().getDay()+6)%7;
+let viewing=order[todayIdx];
 
 /* ---------- storage ---------- */
 const mem={};
 function hasLS(){try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return true;}catch(e){return false;}}
 const LS=hasLS();
-function todayStr(){return new Date().toISOString().slice(0,10);}
+const dstr=()=>new Date().toISOString().slice(0,10);
 function put(k,v){try{LS?localStorage.setItem(k,v):mem[k]=v;}catch(e){mem[k]=v;}}
 function get(k){try{return LS?localStorage.getItem(k):(mem[k]||null);}catch(e){return mem[k]||null;}}
-const checkKey=d=>`workout:${d}:${todayStr()}`;
-const swapKey=d=>`swaps:${d}`;   // swaps persist across days
+const ckKey=d=>`workout:${d}:${dstr()}`;
+const swKey=d=>`swaps:${d}`;
 
 /* ---------- swaps ---------- */
-function getSwaps(day){try{return JSON.parse(get(swapKey(day))||"{}");}catch(e){return {};}}
-function setSwap(day,id,altIdx){
-  const s=getSwaps(day);
-  if(altIdx===null) delete s[id]; else s[id]=altIdx;
-  put(swapKey(day),JSON.stringify(s));
-}
-function resolveEx(day,section,i){
-  const base=PLAN[day][section][i];
-  const id=`${day}-${section}-${i}`;
-  const swaps=getSwaps(day);
-  if(swaps[id]===undefined) return {ex:base,swapped:false};
-  const alt=(base.alts||[])[swaps[id]];
-  if(!alt) return {ex:base,swapped:false};
-  return {ex:{...base,n:alt.n,eq:alt.eq,s:alt.s,c:alt.w},swapped:true};
+function getSwaps(day){try{return JSON.parse(get(swKey(day))||"{}");}catch(e){return {};}}
+function setSwap(day,id,idx){const s=getSwaps(day);if(idx===null)delete s[id];else s[id]=idx;put(swKey(day),JSON.stringify(s));}
+function resolveEx(day,sec,i){
+  const base=PLAN[day][sec][i], id=`${day}-${sec}-${i}`, sw=getSwaps(day);
+  if(sw[id]===undefined) return {ex:base,swapped:false};
+  const a=(base.alts||[])[sw[id]];
+  if(!a) return {ex:base,swapped:false};
+  return {ex:{...base,n:a.n,eq:a.eq,s:a.s,c:a.w},swapped:true};
 }
 
-/* ---------- build nav ---------- */
-order.forEach((key,i)=>{
-  const d=PLAN[key];
-  const b=document.createElement("button");
-  b.dataset.key=key;
-  b.innerHTML=`<span>${d.label}</span><span class="dot"></span>`;
-  if(i===todayIdx){b.classList.add("active","is-today");}
-  b.onclick=()=>selectDay(key);
-  nav.appendChild(b);
-});
+/* ---------- search queries: male-focused, section aware ---------- */
+function buildQuery(term,section){
+  if(section==="cooldown"){
+    const t=/stretch|pose/i.test(term)?term:term+" stretch";
+    return {video:`how to do ${t} men proper form`,image:`man ${t} demonstration`};
+  }
+  if(section==="warmup") return {video:`${term} men warm up how to`,image:`man ${term} exercise gym`};
+  if(section==="cardio") return {video:`${term} men how to gym`,image:`man ${term} gym`};
+  return {video:`how to ${term} men proper form technique`,image:`man ${term} gym exercise form`};
+}
+
+/* ---------- split reps/sets for the numeral block ---------- */
+function splitLoad(m){
+  const parts=m.split("·").map(s=>s.trim());
+  return {big:parts[0]||m, sml:parts.slice(1).join(" · ")};
+}
 
 /* ---------- render ---------- */
-function renderDay(key){
-  const d=PLAN[key];
-  const panel=document.getElementById("panel-"+key);
-  if(d.rest) return;
-  const total=d.lift.length+d.cardio.length+d.core.length;
-  let html=`
-    <div class="day-head">
-      <div class="day-focus">${d.emoji} ${d.focus}</div>
-      <div class="day-count">${total} exercises</div>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="bar-${key}"></div></div>
-    <div class="progress-text" id="ptext-${key}">0 of ${total} done</div>`;
-  ["lift","cardio","core"].forEach(sec=>{
-    if(!d[sec].length) return;
-    html+=`<div class="section-label">${sec}</div>`;
-    d[sec].forEach((_,i)=>html+=exCard(key,sec,i));
-  });
-  html+=`<div class="day-foot">
-      <button class="foot-btn" onclick="resetDay('${key}')">Reset checks</button>
-      <button class="foot-btn" onclick="resetSwaps('${key}')">Reset swaps</button>
-    </div>`;
-  panel.innerHTML=html;
-  loadChecks(key);
-}
+function row(day,sec,i){
+  const {ex,swapped}=resolveEx(day,sec,i);
+  const id=`${day}-${sec}-${i}`;
+  const q=buildQuery(ex.s,sec);
+  const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(q.video);
+  const img="https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q.image);
+  const base=PLAN[day][sec][i], alts=base.alts||[], sw=getSwaps(day), cur=sw[id];
+  const L=splitLoad(ex.m);
 
-function exCard(day,section,i){
-  const {ex,swapped}=resolveEx(day,section,i);
-  const id=`${day}-${section}-${i}`;
-  const yt="https://www.youtube.com/results?search_query="+encodeURIComponent("how to "+ex.s);
-  const img="https://www.google.com/search?tbm=isch&q="+encodeURIComponent(ex.s+" exercise");
-  const base=PLAN[day][section][i];
-  const alts=base.alts||[];
-  const swaps=getSwaps(day);
-  const cur=swaps[id];
-  let altsHtml="";
+  let drawer="";
   if(alts.length){
-    altsHtml=`<div class="alts" id="alts-${id}">
-      <div class="alts-title">Swap with</div>
-      <div class="alt-row ${cur===undefined?"current":""}" onclick="pickAlt('${day}','${section}',${i},null)">
-        <div class="alt-name">${base.n}<span class="alt-why">Original</span></div>
-        <span class="eq-tag eq-${base.eq}">${EQ_LABEL[base.eq]}</span>
-        ${cur===undefined?'<span class="alt-pick">✓</span>':""}
+    drawer=`<div class="drawer" id="dr-${id}"><div class="drawer-h">Swap with</div>
+      <div class="opt ${cur===undefined?"cur":""}" onclick="pickAlt('${day}','${sec}',${i},null)">
+        <span class="opt-dot" style="background:${PLATE[base.eq]}"></span>
+        <div class="opt-nm">${base.n}<span class="opt-why">As planned</span></div>
       </div>`;
     alts.forEach((a,ai)=>{
-      altsHtml+=`<div class="alt-row ${cur===ai?"current":""}" onclick="pickAlt('${day}','${section}',${i},${ai})">
-        <div class="alt-name">${a.n}<span class="alt-why">${a.w}</span></div>
-        <span class="eq-tag eq-${a.eq}">${EQ_LABEL[a.eq]}</span>
-        ${cur===ai?'<span class="alt-pick">✓</span>':""}
+      drawer+=`<div class="opt ${cur===ai?"cur":""}" onclick="pickAlt('${day}','${sec}',${i},${ai})">
+        <span class="opt-dot" style="background:${PLATE[a.eq]}"></span>
+        <div class="opt-nm">${a.n}<span class="opt-why">${a.w}</span></div>
       </div>`;
     });
-    altsHtml+=`</div>`;
+    drawer+=`</div>`;
   }
-  return `
-    <div class="ex-card" id="card-${id}">
-      <div class="ex-top">
-        <div class="ex-check" id="check-${id}" onclick="toggle('${day}','${id}')"></div>
-        <div class="ex-info">
-          <div class="ex-name-row">
-            <p class="ex-name">${ex.n}</p>
-            <span class="eq-tag eq-${ex.eq}">${EQ_LABEL[ex.eq]}</span>
-            ${swapped?'<span class="swapped-flag">swapped</span>':""}
-          </div>
-          <div class="ex-meta">${ex.m}</div>
-          ${ex.c?`<div class="ex-cue">💡 ${ex.c}</div>`:""}
-          <div class="ex-actions">
-            <a class="btn-sm video" href="${yt}" target="_blank" rel="noopener">▶ Demo</a>
-            <a class="btn-sm" href="${img}" target="_blank" rel="noopener">🔍 Images</a>
-            ${alts.length?`<button class="btn-sm swap" onclick="toggleAlts('${id}')">⇄ Swap</button>`:""}
-          </div>
-          ${altsHtml}
-        </div>
+
+  return `<div class="row" id="row-${id}">
+    <div class="tick" id="tk-${id}" role="checkbox" tabindex="0" aria-label="${ex.n}"
+         onclick="toggle('${day}','${id}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggle('${day}','${id}');}"></div>
+    <div class="body">
+      <div class="line1">
+        <p class="nm">${ex.n}</p>
+        <div class="load${L.big.length>12?" wide":""}"><span class="big">${L.big}</span>${L.sml?`<span class="sml">${L.sml}</span>`:""}</div>
       </div>
-    </div>`;
+      <span class="gear"><i style="background:${PLATE[ex.eq]}"></i>${GEAR[ex.eq]}${swapped?' <span class="swapped">· swapped</span>':""}</span>
+      ${ex.c?`<div class="cue">${ex.c}</div>`:""}
+      <div class="acts">
+        <a href="${yt}" target="_blank" rel="noopener">Watch</a>
+        <a href="${img}" target="_blank" rel="noopener">Photos</a>
+        ${alts.length?`<button class="sw" onclick="openDrawer('${id}')">Swap</button>`:""}
+      </div>
+      ${drawer}
+    </div>
+  </div>`;
 }
 
-function toggleAlts(id){
-  const el=document.getElementById("alts-"+id);
-  if(el) el.classList.toggle("open");
-}
-function pickAlt(day,section,i,altIdx){
-  const id=`${day}-${section}-${i}`;
-  setSwap(day,id,altIdx);
-  renderDay(day);
-  const el=document.getElementById("alts-"+id);
-  if(el) el.classList.add("open");
-}
-function resetSwaps(day){
-  put(swapKey(day),"{}");
-  renderDay(day);
+function renderDay(day){
+  const d=PLAN[day], p=document.getElementById("pn-"+day);
+  if(d.rest) return;
+  const total=SECS.reduce((a,s)=>a+((d[s]||[]).length),0);
+  let h=`<div class="meter"><div class="meter-line"><i id="mt-${day}"></i></div>
+    <div class="meter-txt" id="mx-${day}">0 of ${total} done</div></div>`;
+  SECS.forEach(sec=>{
+    if(!d[sec]||!d[sec].length) return;
+    const sub=(sec==="warmup"||sec==="cooldown")?" sub":"";
+    h+=`<div class="sec${sub}"><div class="sec-h">
+        <span class="sec-name">${SEC[sec][0]}</span>
+        <span class="sec-note">${SEC[sec][1]}</span></div>`;
+    d[sec].forEach((_,i)=>h+=row(day,sec,i));
+    h+=`</div>`;
+  });
+  h+=`<div class="foot">
+    <button onclick="resetDay('${day}')">Clear checkmarks</button>
+    <button onclick="resetSwaps('${day}')">Undo swaps</button></div>`;
+  p.innerHTML=h;
+  loadChecks(day);
 }
 
-/* ---------- panels ---------- */
-order.forEach(key=>{
-  const d=PLAN[key];
-  const p=document.createElement("div");
-  p.className="day-panel";p.id="panel-"+key;
-  if(key===order[todayIdx]) p.classList.add("active");
-  main.appendChild(p);
+function openDrawer(id){const e=document.getElementById("dr-"+id);if(e)e.classList.toggle("open");}
+function pickAlt(day,sec,i,idx){
+  setSwap(day,`${day}-${sec}-${i}`,idx);
+  renderDay(day);
+  const e=document.getElementById(`dr-${day}-${sec}-${i}`);if(e)e.classList.add("open");
+}
+function resetSwaps(day){put(swKey(day),"{}");renderDay(day);}
+
+/* ---------- build shell ---------- */
+order.forEach((k,i)=>{
+  const b=document.createElement("button");
+  b.dataset.k=k;
+  b.innerHTML=`<span>${PLAN[k].label}</span><span class="mark"></span>`;
+  if(i===todayIdx) b.classList.add("now");
+  if(k===viewing) b.classList.add("on");
+  b.onclick=()=>show(k);
+  rail.appendChild(b);
+});
+order.forEach(k=>{
+  const d=PLAN[k], p=document.createElement("div");
+  p.className="panel";p.id="pn-"+k;
+  if(k===viewing) p.classList.add("on");
+  panels.appendChild(p);
   if(d.rest){
-    p.innerHTML=`<div class="rest-day"><div class="big">${d.emoji}</div>
-      <div class="day-focus">Rest Day</div>
-      <p>No lifting, no cardio targets today.<br>A light walk is fine. Let the muscles recover and grow.</p></div>`;
-  }else renderDay(key);
+    p.innerHTML=`<div class="rest"><h2>Rest</h2>
+      <p>Nothing scheduled. Muscle is built while you recover, not while you lift.<br>A walk is fine if you want to move.</p></div>`;
+  } else renderDay(k);
 });
 
-function selectDay(key){
-  document.querySelectorAll("nav.days button").forEach(b=>b.classList.toggle("active",b.dataset.key===key));
-  document.querySelectorAll(".day-panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+key));
+function show(k){
+  viewing=k;
+  document.querySelectorAll(".rail button").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="pn-"+k));
+  paintHero();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+/* ---------- hero ---------- */
+function paintHero(){
+  const d=PLAN[viewing];
+  const isToday=viewing===order[todayIdx];
+  const names={mon:"Monday",tue:"Tuesday",wed:"Wednesday",thu:"Thursday",fri:"Friday",sat:"Saturday",sun:"Sunday"};
+  document.getElementById("heroDay").textContent=isToday?"Today · "+names[viewing]:names[viewing];
+  document.getElementById("heroFocus").textContent=d.focus;
+  const sub=document.getElementById("heroSub");
+  if(d.rest){sub.innerHTML="No session";}
+  else{
+    const total=SECS.reduce((a,s)=>a+((d[s]||[]).length),0);
+    const done=document.querySelectorAll(`#pn-${viewing} .tick.on`).length;
+    sub.innerHTML=`<b>${done}</b> of <b>${total}</b> done`;
+  }
+  const wk=document.getElementById("week");
+  wk.innerHTML="";
+  order.forEach((k,i)=>{
+    const el=document.createElement("i");
+    const btn=document.querySelector(`.rail button[data-k="${k}"]`);
+    if(btn&&btn.classList.contains("fin")) el.classList.add("done");
+    if(i===todayIdx) el.classList.add("now");
+    wk.appendChild(el);
+  });
 }
 
 /* ---------- checks ---------- */
 function toggle(day,id){
-  const c=document.getElementById("check-"+id), card=document.getElementById("card-"+id);
-  const on=c.classList.toggle("on");
-  c.textContent=on?"✓":"";
-  card.classList.toggle("checked",on);
-  saveChecks(day);updateProgress(day);
+  const t=document.getElementById("tk-"+id), r=document.getElementById("row-"+id);
+  const on=t.classList.toggle("on");
+  t.textContent=on?"✓":"";
+  r.classList.toggle("done",on);
+  saveChecks(day);progress(day);
+  if(on&&!tInt) startTimer();
 }
 function saveChecks(day){
   const st={};
-  document.querySelectorAll(`#panel-${day} .ex-check`).forEach(c=>st[c.id]=c.classList.contains("on"));
-  put(checkKey(day),JSON.stringify(st));
+  document.querySelectorAll(`#pn-${day} .tick`).forEach(t=>st[t.id]=t.classList.contains("on"));
+  put(ckKey(day),JSON.stringify(st));
 }
 function loadChecks(day){
-  let st=null;
-  try{st=JSON.parse(get(checkKey(day))||"null");}catch(e){}
+  let st=null;try{st=JSON.parse(get(ckKey(day))||"null");}catch(e){}
   if(st) Object.entries(st).forEach(([id,on])=>{
     if(!on)return;
-    const c=document.getElementById(id);
-    const card=document.getElementById("card-"+id.replace("check-",""));
-    if(c){c.classList.add("on");c.textContent="✓";}
-    if(card) card.classList.add("checked");
+    const t=document.getElementById(id), r=document.getElementById("row-"+id.replace("tk-",""));
+    if(t){t.classList.add("on");t.textContent="✓";}
+    if(r) r.classList.add("done");
   });
-  updateProgress(day);
+  progress(day);
 }
-function updateProgress(day){
-  const all=document.querySelectorAll(`#panel-${day} .ex-check`);
+function progress(day){
+  const all=document.querySelectorAll(`#pn-${day} .tick`);
   if(!all.length)return;
-  const done=document.querySelectorAll(`#panel-${day} .ex-check.on`).length;
-  const bar=document.getElementById("bar-"+day);
+  const done=document.querySelectorAll(`#pn-${day} .tick.on`).length;
+  const bar=document.getElementById("mt-"+day);
   if(bar) bar.style.width=Math.round(done/all.length*100)+"%";
-  const t=document.getElementById("ptext-"+day);
-  if(t) t.textContent=done===all.length?`All ${all.length} done — nice work 🎉`:`${done} of ${all.length} done`;
-  const btn=document.querySelector(`nav.days button[data-key="${day}"]`);
-  if(btn) btn.classList.toggle("done",done===all.length&&done>0);
-  updateWeekStrip();
+  const tx=document.getElementById("mx-"+day);
+  if(tx){
+    tx.textContent=done===all.length?`Session complete — all ${all.length} done`:`${done} of ${all.length} done`;
+    tx.classList.toggle("full",done===all.length);
+  }
+  const btn=document.querySelector(`.rail button[data-k="${day}"]`);
+  if(btn) btn.classList.toggle("fin",done===all.length&&done>0);
+  paintHero();
 }
 function resetDay(day){
-  document.querySelectorAll(`#panel-${day} .ex-check`).forEach(c=>{c.classList.remove("on");c.textContent="";});
-  document.querySelectorAll(`#panel-${day} .ex-card`).forEach(c=>c.classList.remove("checked"));
-  saveChecks(day);updateProgress(day);
-}
-
-/* ---------- week strip ---------- */
-function updateWeekStrip(){
-  const strip=document.getElementById("weekStrip");
-  strip.innerHTML="";
-  let doneCount=0;
-  order.forEach((key,i)=>{
-    const dot=document.createElement("div");
-    dot.className="week-dot";
-    if(!PLAN[key].rest){
-      const btn=document.querySelector(`nav.days button[data-key="${key}"]`);
-      if(btn&&btn.classList.contains("done")){dot.classList.add("done");doneCount++;}
-    }
-    if(i===todayIdx) dot.classList.add("today");
-    strip.appendChild(dot);
-  });
-  document.getElementById("weekNote").textContent=
-    doneCount?`${doneCount} of 6 sessions complete this week`:"6 sessions this week · 1 rest day";
+  document.querySelectorAll(`#pn-${day} .tick`).forEach(t=>{t.classList.remove("on");t.textContent="";});
+  document.querySelectorAll(`#pn-${day} .row`).forEach(r=>r.classList.remove("done"));
+  saveChecks(day);progress(day);
 }
 
 /* ---------- rest timer ---------- */
-let tSecs=60,tLeft=60,tInt=null;
-function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
-function paint(){document.getElementById("timerDisp").textContent=fmt(tLeft);}
-function setTimer(s){tSecs=s;tLeft=s;stopTimer();paint();}
+let tSet=60,tLeft=60,tInt=null;
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+function paintClock(){
+  document.getElementById("clock").textContent=fmt(tLeft);
+  document.getElementById("drain").style.width=(tInt?((tSet-tLeft)/tSet*100):0)+"%";
+}
+function setTimer(s){
+  tSet=s;tLeft=s;stopTimer();paintClock();
+  ["p60","p90","p120"].forEach(id=>document.getElementById(id).classList.remove("sel"));
+  const el=document.getElementById("p"+s);if(el)el.classList.add("sel");
+}
 function toggleTimer(){tInt?stopTimer():startTimer();}
 function startTimer(){
-  if(tLeft<=0)tLeft=tSecs;
-  document.getElementById("timerToggle").textContent="Pause";
-  document.getElementById("timerDisp").classList.add("running");
+  if(tLeft<=0)tLeft=tSet;
+  document.getElementById("goBtn").textContent="Stop";
+  document.getElementById("timerBar").classList.add("live");
   tInt=setInterval(()=>{
-    tLeft--;paint();
-    if(tLeft<=0){
-      stopTimer();tLeft=tSecs;paint();
-      if(navigator.vibrate) navigator.vibrate([200,100,200]);
-    }
+    tLeft--;paintClock();
+    if(tLeft<=0){stopTimer();tLeft=tSet;paintClock();if(navigator.vibrate)navigator.vibrate([200,100,200]);}
   },1000);
+  paintClock();
 }
 function stopTimer(){
   clearInterval(tInt);tInt=null;
-  document.getElementById("timerToggle").textContent="Start";
-  document.getElementById("timerDisp").classList.remove("running");
+  document.getElementById("goBtn").textContent="Start";
+  document.getElementById("timerBar").classList.remove("live");
+  document.getElementById("drain").style.width="0%";
 }
-paint();
-updateWeekStrip();
+paintClock();paintHero();
 </script>
 <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js").catch(function(){});
-}
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(function(){});
 </script>
 </body>
 </html>
