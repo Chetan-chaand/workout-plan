@@ -26,8 +26,8 @@
     --line:#282e36;
     --line-2:#343b45;
     /* volt: the single loud colour */
-    --volt:#c8f000;
-    --volt-deep:#a8cc00;
+    --volt:#2fd4b4;
+    --volt-deep:#1fae93;
     --go:#3fa46a;
     --flag:#e8543a;
     /* olympic plate colours, lifted for dark */
@@ -66,7 +66,7 @@
   }
   .hero-sub{
     display:inline-flex;align-items:baseline;gap:5px;margin-top:15px;
-    font-size:13.5px;color:#12140c;font-weight:800;
+    font-size:13.5px;color:#04211c;font-weight:800;
     background:var(--volt);padding:7px 14px;border-radius:30px;
   }
   .hero-sub b{font-weight:800;font-variant-numeric:tabular-nums;}
@@ -88,9 +88,9 @@
     display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;
   }
   .rail button .mark{width:5px;height:5px;border-radius:50%;background:transparent;}
-  .rail button.on{background:var(--volt);color:#12140c;border-color:var(--volt);}
+  .rail button.on{background:var(--volt);color:#04211c;border-color:var(--volt);}
   .rail button.fin .mark{background:var(--go);}
-  .rail button.on.fin .mark{background:#12140c;}
+  .rail button.on.fin .mark{background:#04211c;}
   .rail button.now::after{
     content:"";position:absolute;top:5px;right:6px;width:5px;height:5px;
     border-radius:50%;background:var(--flag);
@@ -138,7 +138,7 @@
     color:transparent;font-size:18px;font-weight:900;margin-top:1px;
     transition:background .15s,border-color .15s;
   }
-  .tick.on{background:var(--volt);border-color:var(--volt);color:#12140c;}
+  .tick.on{background:var(--volt);border-color:var(--volt);color:#04211c;}
   .body{flex:1;min-width:0;}
   .head{cursor:pointer;display:block;}
   .line1{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -179,8 +179,8 @@
     font-family:inherit;cursor:pointer;font-size:13px;font-weight:700;
     color:var(--ink);text-decoration:none;
   }
-  .acts a:active,.acts button:active{background:var(--volt);color:#12140c;border-color:var(--volt);}
-  .acts .sw{background:var(--volt);color:#12140c;border-color:var(--volt);}
+  .acts a:active,.acts button:active{background:var(--volt);color:#04211c;border-color:var(--volt);}
+  .acts .sw{background:var(--volt);color:#04211c;border-color:var(--volt);}
 
   /* compact warmup / cooldown */
   .sec.sub .nm{font-size:16.5px;font-weight:700;color:var(--ink);}
@@ -220,7 +220,7 @@
     font-size:12px;color:var(--muted-2);font-weight:600;pointer-events:none;
   }
   .log-save{
-    background:var(--volt);border:none;color:#12140c;font-size:13.5px;font-weight:800;
+    background:var(--volt);border:none;color:#04211c;font-size:13.5px;font-weight:800;
     padding:11px 20px;border-radius:9px;cursor:pointer;font-family:inherit;margin-top:6px;
   }
   .log-note{font-size:12px;color:var(--muted-2);margin-top:11px;line-height:1.5;}
@@ -261,13 +261,13 @@
   }
   .timer.live{background:var(--volt);border-top-color:var(--volt);}
   .timer-drain{position:absolute;top:0;left:0;height:3px;background:var(--volt);width:0%;border-radius:20px 0 0 0;}
-  .timer.live .timer-drain{background:#12140c;opacity:.3;}
+  .timer.live .timer-drain{background:#04211c;opacity:.3;}
   .timer-in{display:flex;align-items:center;gap:12px;}
   .clock{
     font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1.2px;
     min-width:72px;color:#fff;
   }
-  .timer.live .clock{color:#12140c;}
+  .timer.live .clock{color:#04211c;}
   .presets{display:flex;gap:6px;flex:1;}
   .presets button{
     flex:1;background:transparent;border:1.5px solid var(--line-2);color:var(--muted);
@@ -276,12 +276,12 @@
   }
   .presets button.sel{border-color:#fff;color:#fff;}
   .timer.live .presets button{border-color:rgba(18,20,12,.28);color:rgba(18,20,12,.7);}
-  .timer.live .presets button.sel{border-color:#12140c;color:#12140c;}
+  .timer.live .presets button.sel{border-color:#04211c;color:#04211c;}
   .go{
-    background:var(--volt);border:none;color:#12140c;font-size:13.5px;font-weight:800;
+    background:var(--volt);border:none;color:#04211c;font-size:13.5px;font-weight:800;
     padding:11px 19px;border-radius:9px;cursor:pointer;font-family:inherit;flex:0 0 auto;
   }
-  .timer.live .go{background:#12140c;color:var(--volt);}
+  .timer.live .go{background:#04211c;color:var(--volt);}
 
   /* ---------- DIET ---------- */
   .diet{margin-bottom:12px;}
@@ -312,7 +312,7 @@
     color:#fff;font-size:20px;font-weight:800;line-height:1;cursor:pointer;font-family:inherit;
     display:flex;align-items:center;justify-content:center;
   }
-  .food-ct button:active{background:var(--volt);color:#12140c;border-color:var(--volt);}
+  .food-ct button:active{background:var(--volt);color:#04211c;border-color:var(--volt);}
   .food-n{
     min-width:22px;text-align:center;font-size:18px;font-weight:800;
     font-variant-numeric:tabular-nums;color:var(--muted-2);
@@ -350,7 +350,7 @@
     <span><i style="background:#8a919b"></i>Cardio</span>
   </div>
 
-  <div class="build">build <b>v15</b> · dark</div>
+  <div class="build">build <b>v16</b> · dark</div>
 
   <div class="timer" id="timerBar">
     <div class="timer-drain" id="drain"></div>
