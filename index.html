@@ -37,6 +37,10 @@
     --pl-cable:#43a874;
     --pl-body:#9aa3ae;
     --pl-cardio:#a97ad6;
+    /* layout */
+    --app-w:480px;
+    --rail-h:71px;
+    --safe-t:env(safe-area-inset-top);
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;background:var(--bg);}
@@ -45,7 +49,14 @@
     color:var(--ink);min-height:100vh;display:flex;justify-content:center;
     -webkit-font-smoothing:antialiased;
   }
-  .app{width:100%;max-width:480px;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);}
+  .app{
+    width:100%;max-width:var(--app-w);min-height:100vh;
+    display:flex;flex-direction:column;background:var(--bg);
+    padding-top:var(--safe-t);
+    padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);
+    padding-bottom:calc(92px + env(safe-area-inset-bottom));
+  }
+  body.no-timer .app{padding-bottom:calc(16px + env(safe-area-inset-bottom));}
   a{color:inherit;}
   :focus-visible{outline:3px solid var(--volt);outline-offset:2px;}
 
@@ -54,7 +65,7 @@
     background:linear-gradient(160deg,#20252c 0%,#191d23 55%,#171a20 100%);
     border:1px solid var(--line-2);
     color:var(--ink);margin:10px 10px 0;border-radius:20px;
-    padding:22px 22px 20px;position:relative;overflow:hidden;
+    padding:20px 22px 18px;position:relative;overflow:hidden;
   }
   .hero::after{
     content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;
@@ -65,27 +76,33 @@
     font-size:44px;font-weight:800;letter-spacing:-2px;line-height:.95;margin:0;color:#fff;
   }
   .hero-sub{
-    display:inline-flex;align-items:baseline;gap:5px;margin-top:15px;
+    display:inline-flex;align-items:baseline;gap:5px;margin-top:13px;
     font-size:13.5px;color:#04211c;font-weight:800;
     background:var(--volt);padding:7px 14px;border-radius:30px;
   }
   .hero-sub b{font-weight:800;font-variant-numeric:tabular-nums;}
-  .week{display:flex;gap:4px;margin-top:17px;}
+  .week{display:flex;gap:4px;margin-top:14px;}
   .week i{flex:1;height:4px;border-radius:3px;background:#333a44;display:block;}
   .week i.done{background:var(--volt);}
   .week i.now{background:#fff;}
 
   /* ---------- DAY RAIL ---------- */
   .rail{
-    display:flex;gap:5px;padding:14px 10px 12px;overflow-x:auto;
-    position:sticky;top:0;z-index:30;background:var(--bg);scrollbar-width:none;
+    display:flex;gap:5px;padding:14px 10px 11px;overflow-x:auto;
+    position:sticky;top:var(--safe-t);z-index:30;scrollbar-width:none;
+    background:var(--bg);border-bottom:1px solid var(--line);
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain;
+  }
+  @supports (backdrop-filter:blur(2px)){
+    .rail{background:rgba(13,15,18,.82);backdrop-filter:blur(14px) saturate(140%);}
   }
   .rail::-webkit-scrollbar{display:none;}
   .rail button{
-    flex:1 0 auto;min-width:46px;background:var(--card);border:1px solid var(--line);
-    padding:10px 4px 9px;cursor:pointer;font-family:inherit;border-radius:12px;
-    color:var(--muted);font-size:13px;font-weight:700;
+    flex:1 1 auto;min-width:38px;background:var(--card);border:1px solid var(--line);
+    padding:10px 3px 9px;cursor:pointer;font-family:inherit;border-radius:12px;
+    color:var(--muted);font-size:12.5px;font-weight:700;
     display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;
+    scroll-snap-align:center;
   }
   .rail button .mark{width:5px;height:5px;border-radius:50%;background:transparent;}
   .rail button.on{background:var(--volt);color:#04211c;border-color:var(--volt);}
@@ -96,20 +113,23 @@
     border-radius:50%;background:var(--flag);
   }
 
-  main{flex:1;padding:0 10px 100px;}
+  main{flex:1;padding:0 10px 14px;}
   .panel{display:none;}
   .panel.on{display:block;}
 
   /* ---------- METER ---------- */
   .meter{
-    background:var(--card);border:1px solid var(--line);border-radius:16px;
-    padding:15px 17px;margin-bottom:12px;
+    position:sticky;top:calc(var(--safe-t) + var(--rail-h));z-index:20;
+    display:flex;align-items:center;gap:13px;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px 15px;margin-bottom:12px;
+    box-shadow:0 0 0 10px var(--bg),0 10px 18px -14px #000;
   }
-  .meter-line{height:8px;background:var(--line-2);border-radius:5px;overflow:hidden;}
+  .meter-line{flex:1;height:8px;background:var(--line-2);border-radius:5px;overflow:hidden;}
   .meter-line i{display:block;height:100%;background:var(--volt);width:0%;transition:width .3s;border-radius:5px;}
   .meter-txt{
-    margin-top:10px;font-size:13.5px;color:var(--muted);font-weight:700;
-    font-variant-numeric:tabular-nums;
+    flex:0 0 auto;font-size:12.5px;color:var(--muted);font-weight:800;
+    font-variant-numeric:tabular-nums;letter-spacing:.2px;
   }
   .meter-txt.full{color:var(--volt);}
 
@@ -132,7 +152,7 @@
   .row{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
   .row:last-of-type{border-bottom:none;}
   .tick{
-    width:36px;height:36px;flex:0 0 36px;border-radius:11px;
+    width:44px;height:44px;flex:0 0 44px;border-radius:13px;
     border:2px solid var(--line-2);background:var(--raise);
     display:flex;align-items:center;justify-content:center;cursor:pointer;
     color:transparent;font-size:18px;font-weight:900;margin-top:1px;
@@ -141,13 +161,16 @@
   .tick.on{background:var(--volt);border-color:var(--volt);color:#04211c;}
   .body{flex:1;min-width:0;}
   .head{cursor:pointer;display:block;}
-  .line1{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-  .nm{font-size:18.5px;font-weight:750;letter-spacing:-.4px;line-height:1.28;margin:0;color:#fff;}
+  .line1{
+    display:grid;grid-template-columns:1fr auto 18px;
+    align-items:start;gap:10px;
+  }
+  .nm{font-size:18.5px;font-weight:750;letter-spacing:-.4px;line-height:1.28;margin:0;color:#fff;overflow-wrap:break-word;}
   .row.done .nm{color:var(--muted-2);text-decoration:line-through;}
   .load{text-align:right;flex:0 0 auto;font-variant-numeric:tabular-nums;}
   .load .big{font-size:19px;font-weight:800;letter-spacing:-.5px;line-height:1;display:block;color:#fff;}
   .load .sml{font-size:12px;color:var(--muted-2);font-weight:600;margin-top:5px;display:block;}
-  .load.wide{max-width:130px;}
+  .load.wide{max-width:115px;}
   .load.wide .big{font-size:14px;font-weight:700;line-height:1.35;letter-spacing:0;color:var(--muted);}
   .chev{
     flex:0 0 auto;width:18px;text-align:center;color:var(--line-2);
@@ -173,11 +196,11 @@
     font-size:14px;color:var(--ink-2);line-height:1.55;margin-top:11px;
     padding-left:11px;border-left:3px solid var(--volt);
   }
-  .acts{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap;}
+  .acts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:13px;}
   .acts a,.acts button{
-    background:var(--raise);border:1px solid var(--line-2);padding:8px 13px;border-radius:9px;
+    background:var(--raise);border:1px solid var(--line-2);padding:11px 10px;border-radius:9px;
     font-family:inherit;cursor:pointer;font-size:13px;font-weight:700;
-    color:var(--ink);text-decoration:none;
+    color:var(--ink);text-decoration:none;text-align:center;
   }
   .acts a:active,.acts button:active{background:var(--volt);color:#04211c;border-color:var(--volt);}
   .acts .sw{background:var(--volt);color:#04211c;border-color:var(--volt);}
@@ -185,7 +208,7 @@
   /* compact warmup / cooldown */
   .sec.sub .nm{font-size:16.5px;font-weight:700;color:var(--ink);}
   .sec.sub .row{padding:13px 0;}
-  .sec.sub .tick{width:32px;height:32px;flex:0 0 32px;border-radius:10px;font-size:16px;}
+  .sec.sub .tick{width:38px;height:38px;flex:0 0 38px;border-radius:11px;font-size:16px;}
   .sec.sub .load .big{font-size:15px;color:var(--muted);}
 
   /* ---------- SWAP DRAWER ---------- */
@@ -240,11 +263,23 @@
     font-family:inherit;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);
   }
   .key{
-    display:flex;flex-wrap:wrap;gap:9px 15px;padding:16px 17px;margin-bottom:12px;
+    margin:0 10px 12px;overflow:hidden;
     background:var(--card);border:1px solid var(--line);border-radius:16px;
   }
-  .key span{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);font-weight:700;}
-  .key i{width:9px;height:9px;border-radius:3px;}
+  .key-sum{
+    list-style:none;cursor:pointer;padding:14px 17px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.3px;
+  }
+  .key-sum::-webkit-details-marker{display:none;}
+  .key-sum::after{content:"\25BC";font-size:9px;color:var(--line-2);transition:transform .2s;}
+  .key[open] .key-sum::after{transform:rotate(180deg);color:var(--volt);}
+  .key-grid{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px 12px;
+    padding:0 17px 16px;
+  }
+  .key-grid span{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);font-weight:700;}
+  .key-grid i{width:10px;height:10px;border-radius:3px;flex:0 0 10px;}
 
   .build{
     text-align:center;font-size:11px;color:var(--muted-2);font-weight:700;
@@ -255,10 +290,11 @@
   /* ---------- REST TIMER ---------- */
   .timer{
     position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-    width:100%;max-width:480px;background:var(--raise);border-top:1px solid var(--line-2);
+    width:100%;max-width:var(--app-w);background:var(--raise);border-top:1px solid var(--line-2);
     padding:13px 16px calc(13px + env(safe-area-inset-bottom));z-index:40;
-    border-radius:20px 20px 0 0;
+    border-radius:20px 20px 0 0;box-shadow:0 -14px 30px -18px #000;
   }
+  .timer.off{display:none;}
   .timer.live{background:var(--volt);border-top-color:var(--volt);}
   .timer-drain{position:absolute;top:0;left:0;height:3px;background:var(--volt);width:0%;border-radius:20px 0 0 0;}
   .timer.live .timer-drain{background:#04211c;opacity:.3;}
@@ -308,7 +344,7 @@
   .food-g{font-size:12.5px;color:var(--muted-2);font-weight:600;display:block;margin-top:4px;}
   .food-ct{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
   .food-ct button{
-    width:36px;height:36px;border-radius:11px;border:2px solid var(--line-2);background:var(--raise);
+    width:44px;height:44px;border-radius:13px;border:2px solid var(--line-2);background:var(--raise);
     color:#fff;font-size:20px;font-weight:800;line-height:1;cursor:pointer;font-family:inherit;
     display:flex;align-items:center;justify-content:center;
   }
@@ -323,6 +359,26 @@
     border-top:1px solid var(--line);margin-top:16px;
   }
   .diet-note b{color:#fff;}
+
+  @media (max-width:359px){
+    .line1{grid-template-columns:1fr 18px;gap:6px 10px;}
+    .nm{grid-column:1;grid-row:1;}
+    .chev{grid-column:2;grid-row:1;}
+    .load,.load.wide{grid-column:1 / -1;grid-row:2;text-align:left;max-width:none;}
+    .load .big,.load.wide .big{display:inline;font-size:15px;font-weight:700;letter-spacing:0;color:var(--ink-2);}
+    .load .sml{display:inline;margin:0 0 0 8px;}
+  }
+
+  @media (min-width:600px){
+    :root{--app-w:560px;}
+    .macro-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .macro.lead{grid-column:span 2;}
+    .key-grid{grid-template-columns:repeat(6,minmax(0,1fr));}
+  }
+  @media (min-width:900px){
+    body{background:#07090b;}
+    .app{border-left:1px solid var(--line);border-right:1px solid var(--line);}
+  }
 
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;animation:none !important;}
@@ -341,16 +397,19 @@
   <nav class="rail" id="rail"></nav>
   <main id="panels"></main>
 
-  <div class="key">
-    <span><i style="background:#c8322b"></i>Barbell</span>
-    <span><i style="background:#3272bd"></i>Machine</span>
-    <span><i style="background:#d9a327"></i>Dumbbell</span>
-    <span><i style="background:#3f8f5c"></i>Cable</span>
-    <span><i style="background:#d8d4c8"></i>Bodyweight</span>
-    <span><i style="background:#8a919b"></i>Cardio</span>
-  </div>
+  <details class="key">
+    <summary class="key-sum">Equipment colours</summary>
+    <div class="key-grid">
+      <span><i style="background:var(--pl-barbell)"></i>Barbell</span>
+      <span><i style="background:var(--pl-machine)"></i>Machine</span>
+      <span><i style="background:var(--pl-db)"></i>Dumbbell</span>
+      <span><i style="background:var(--pl-cable)"></i>Cable</span>
+      <span><i style="background:var(--pl-body)"></i>Bodyweight</span>
+      <span><i style="background:var(--pl-cardio)"></i>Cardio</span>
+    </div>
+  </details>
 
-  <div class="build">build <b>v16</b> · dark</div>
+  <div class="build">build <b>v17</b> · dark</div>
 
   <div class="timer" id="timerBar">
     <div class="timer-drain" id="drain"></div>
@@ -611,7 +670,7 @@ cooldown:[
 };
 
 
-const PLATE={barbell:"#c8322b",machine:"#3272bd",db:"#d9a327",cable:"#3f8f5c",body:"#d8d4c8",cardio:"#8a919b"};
+const PLATE={barbell:"#e04b42",machine:"#4a8ed6",db:"#e0a92c",cable:"#43a874",body:"#9aa3ae",cardio:"#a97ad6"};
 const GEAR={machine:"Machine",db:"Dumbbell",barbell:"Barbell",cable:"Cable",body:"Bodyweight",cardio:"Cardio"};
 const SEC={warmup:["Warm up","move, don't hold"],lift:["Lift",""],cardio:["Cardio",""],core:["Core",""],cooldown:["Cool down","hold each 30s"]};
 const SECS=["warmup","lift","cardio","core","cooldown"];
@@ -686,9 +745,9 @@ function row(day,sec,i){
       rows+=`<div class="set-row">
         <span class="set-no">Set ${si+1}</span>
         <span class="set-f"><input id="w-${id}-${si}" type="number" inputmode="decimal" step="0.5" min="0"
-          placeholder="kg" value="${p.w!==undefined?p.w:""}"><span>kg</span></span>
+          placeholder="" value="${p.w!==undefined?p.w:""}"><span>kg</span></span>
         <span class="set-f"><input id="r-${id}-${si}" type="number" inputmode="numeric" min="0"
-          placeholder="reps" value="${p.r!==undefined?p.r:""}"><span>reps</span></span>
+          placeholder="" value="${p.r!==undefined?p.r:""}"><span>reps</span></span>
       </div>`;
     }
     logBox=`<div class="log" id="lg-${id}">
@@ -750,7 +809,7 @@ function renderDay(day){
   if(d.rest) return;
   const total=SECS.reduce((a,s)=>a+((d[s]||[]).length),0);
   let h=`<div class="meter"><div class="meter-line"><i id="mt-${day}"></i></div>
-    <div class="meter-txt" id="mx-${day}">0 of ${total} done</div></div>`;
+    <span class="meter-txt" id="mx-${day}">0/${total}</span></div>`;
   SECS.forEach(sec=>{
     if(!d[sec]||!d[sec].length) return;
     const sub=(sec==="warmup"||sec==="cooldown")?" sub":"";
@@ -812,9 +871,20 @@ function show(k){
   viewing=k;
   document.querySelectorAll(".rail button").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="pn-"+k));
+  syncTimerBar();
   paintHero();
   window.scrollTo({top:0,behavior:"instant"});
 }
+
+/* the rail's height changes with font size / platform, so measure it instead
+   of hard-coding the offset the sticky meter hangs from */
+function syncRailHeight(){
+  const h=rail.getBoundingClientRect().height;
+  if(h) document.documentElement.style.setProperty("--rail-h",h+"px");
+}
+addEventListener("resize",syncRailHeight);
+addEventListener("orientationchange",syncRailHeight);
+if(window.ResizeObserver) new ResizeObserver(syncRailHeight).observe(rail);
 
 /* ---------- hero ---------- */
 function paintHero(){
@@ -886,7 +956,7 @@ function progress(day){
   if(bar) bar.style.width=Math.round(done/all.length*100)+"%";
   const tx=document.getElementById("mx-"+day);
   if(tx){
-    tx.textContent=done===all.length?`Session complete — all ${all.length} done`:`${done} of ${all.length} done`;
+    tx.textContent=done===all.length?`All ${all.length} done`:`${done}/${all.length}`;
     tx.classList.toggle("full",done===all.length);
   }
   const btn=document.querySelector(`.rail button[data-k="${day}"]`);
@@ -1050,11 +1120,20 @@ function setTimer(s){
   ["p60","p90","p120"].forEach(id=>document.getElementById(id).classList.remove("sel"));
   const el=document.getElementById("p"+s);if(el)el.classList.add("sel");
 }
+/* the rest timer is dead weight on the diet tab and on rest days --- hide it
+   there (unless it is actually counting) and give the space back to the list */
+function syncTimerBar(){
+  const idle=!tInt;
+  const off=idle&&(viewing==="diet"||(PLAN[viewing]&&PLAN[viewing].rest));
+  document.getElementById("timerBar").classList.toggle("off",off);
+  document.body.classList.toggle("no-timer",off);
+}
 function toggleTimer(){tInt?stopTimer():startTimer();}
 function startTimer(){
   if(tLeft<=0)tLeft=tSet;
   document.getElementById("goBtn").textContent="Stop";
   document.getElementById("timerBar").classList.add("live");
+  syncTimerBar();
   tInt=setInterval(()=>{
     tLeft--;paintClock();
     if(tLeft<=0){stopTimer();tLeft=tSet;paintClock();if(navigator.vibrate)navigator.vibrate([200,100,200]);}
@@ -1066,8 +1145,9 @@ function stopTimer(){
   document.getElementById("goBtn").textContent="Start";
   document.getElementById("timerBar").classList.remove("live");
   document.getElementById("drain").style.width="0%";
+  syncTimerBar();
 }
-paintClock();renderDiet();paintHero();
+paintClock();renderDiet();paintHero();syncTimerBar();syncRailHeight();
 </script>
 <script>
 try{
