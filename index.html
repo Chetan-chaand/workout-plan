@@ -214,7 +214,7 @@
     <div class="spine" id="spine"></div>
   </div>
   <div id="view"></div>
-  <div class="build">build <b>v20</b></div>
+  <div class="build">build <b>v21</b></div>
 </div>
 
 <div class="bar" id="bar"><div class="bar-in">
@@ -230,214 +230,168 @@
 
 <script>
 const PLAN = {
-  mon:{label:"Mon",focus:"Upper A",warmup:[
-    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Treadmill or bike — just raise body temp",s:"treadmill light warm up jog"},
-    {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosens the shoulder before pressing",s:"standing arm circles shoulder warm up"},
-    {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Wakes up the upper back so the shoulders sit right",s:"resistance band pull apart"},
-    {n:"Empty Bar Press",eq:"barbell",m:"10 reps × 2",c:"Groove the press path before loading it",s:"empty barbell bench press warm up"},
-  ],
+  mon:{label:"Mon",focus:"Chest & Back",
+    warmup:[
+      {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Treadmill or bike — just raise body temp",s:"treadmill light warm up jog"},
+      {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosens the shoulder before pressing",s:"standing arm circles shoulder warm up"},
+      {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Wakes up the upper back so the shoulders sit right",s:"resistance band pull apart"},
+      {n:"Empty Bar Press",eq:"barbell",m:"10 reps × 2",c:"Groove the press path before loading it",s:"empty barbell bench press warm up"}
+    ],
     lift:[
-    {n:"Flat Bench / DB Press",eq:"barbell",m:"8–12 × 4 · 2–3 min",c:"Your main press. Rest the full 2–3 min — short rests cost you reps on later sets",s:"flat barbell bench press",
-     alts:[{n:"Flat DB Press",eq:"db",w:"More stretch, easier on shoulders",s:"flat dumbbell press"},
-           {n:"Chest Press Machine",eq:"machine",w:"Safest, no spotter needed",s:"chest press machine"}]},
-    {n:"Lat Pull Down",eq:"machine",m:"10–12 × 4 · 2 min",c:"Drive elbows down to your ribs, chest tall",s:"lat pulldown wide grip",
-     alts:[{n:"Pull Ups",eq:"body",w:"Harder, better if you have them",s:"pull up proper form"},
-           {n:"Assisted Pull Up",eq:"machine",w:"Bridge to full pull ups",s:"assisted pull up machine"}]},
-    {n:"Overhead Press DB",eq:"db",m:"8–12 × 3 · 2 min",c:"Press up and slightly back, ribs down",s:"seated dumbbell shoulder press",
-     alts:[{n:"Barbell Overhead Press",eq:"barbell",w:"Heavier loading",s:"standing barbell overhead press"},
-           {n:"Shoulder Press Machine",eq:"machine",w:"Fixed path, easier control",s:"shoulder press machine"}]},
-    {n:"Single Arm Row DB",eq:"db",m:"10–12 × 3 · 1–2 min",c:"Pull to the hip, no twisting through the spine",s:"one arm dumbbell row",
-     alts:[{n:"Chest Supported Row",eq:"machine",w:"No lower back involvement",s:"chest supported row machine"},
-           {n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
-    {n:"Side Lateral Raise",eq:"db",m:"12–15 × 3 · 1 min",c:"Lead with the elbow, stop at shoulder height",s:"dumbbell lateral raise",
-     alts:[{n:"Cable Lateral Raise",eq:"cable",w:"Tension at the bottom too",s:"cable lateral raise"},
-           {n:"Lateral Raise Machine",eq:"machine",w:"No swinging",s:"lateral raise machine"}]},
-    {n:"Barbell Curl",eq:"barbell",m:"10–12 × 3 · 1 min",c:"Elbows pinned to your sides",s:"barbell bicep curl",
-     alts:[{n:"EZ Bar Curl",eq:"barbell",w:"Kinder on the wrists",s:"ez bar curl"},
-           {n:"Cable Curl",eq:"cable",w:"Constant tension",s:"cable bicep curl"}]},
-    {n:"Tricep Pushdown Cable",eq:"cable",m:"10–15 × 3 · 1 min",c:"Upper arms still, only the forearm moves",s:"cable tricep pushdown",
-     alts:[{n:"Rope Pushdown",eq:"cable",w:"Spread at the bottom",s:"rope tricep pushdown"},
-           {n:"Dips (upright)",eq:"body",w:"Stay upright to load triceps",s:"parallel bar tricep dip"}]}
-  ],cardio:[{n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy pace — this is a finisher, not a session",s:"treadmill steady state walk",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"},
-           {n:"Incline Walk",eq:"cardio",w:"Easier on the knees than jogging",s:"treadmill incline walk"}]}],
-   core:[{n:"Plank",eq:"body",m:"30–45 sec × 3",c:"Straight line head to heels. Add time each week, then hold a plate",s:"forearm plank hold",
-     alts:[{n:"Knee Plank",eq:"body",w:"Easier version",s:"plank on knees modified"}]},
-     {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",
-     alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]}],
-   cooldown:[
-    {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Forearm on the frame, step through gently",s:"doorway pec stretch"},
-    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Pull the arm across, keep the shoulder down",s:"cross body shoulder stretch"},
-    {n:"Lat Stretch",eq:"body",m:"30 sec each side",c:"Hold a rack, sit your hips back",s:"standing lat stretch"},
-    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe out and let the ribs sink",s:"childs pose stretch"},
-  ]},
+      {n:"Flat Bench / DB Press",eq:"barbell",m:"8–12 × 4 · 2–3 min",c:"Your main press. Rest the full 2–3 min — short rests cost you reps on later sets",s:"flat barbell bench press",alts:[{n:"Flat DB Press",eq:"db",w:"More stretch, easier on shoulders",s:"flat dumbbell press"},{n:"Chest Press Machine",eq:"machine",w:"Safest, no spotter needed",s:"chest press machine"}]},
+      {n:"Lat Pull Down",eq:"machine",m:"10–12 × 4 · 2 min",c:"Drive elbows down to your ribs, chest tall",s:"lat pulldown wide grip",alts:[{n:"Pull Ups",eq:"body",w:"Harder, better if you have them",s:"pull up proper form"},{n:"Assisted Pull Up",eq:"machine",w:"Bridge to full pull ups",s:"assisted pull up machine"}]},
+      {n:"Single Arm Row DB",eq:"db",m:"10–12 × 3 · 1–2 min",c:"Pull to the hip, no twisting through the spine",s:"one arm dumbbell row",alts:[{n:"Chest Supported Row",eq:"machine",w:"No lower back involvement",s:"chest supported row machine"},{n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
+      {n:"Cable Cross",eq:"cable",m:"12–15 × 3 · 1 min",c:"Squeeze at the middle, slight elbow bend throughout",s:"cable crossover chest",alts:[{n:"Pec Deck",eq:"machine",w:"Same squeeze, fixed path",s:"pec deck chest fly machine"},{n:"DB Flyes",eq:"db",w:"Bigger stretch at the bottom",s:"dumbbell chest fly"}]},
+      {n:"Side Lateral Raise",eq:"db",m:"12–15 × 3 · 1 min",c:"Lead with the elbow, stop at shoulder height",s:"dumbbell lateral raise",alts:[{n:"Cable Lateral Raise",eq:"cable",w:"Tension at the bottom too",s:"cable lateral raise"},{n:"Lateral Raise Machine",eq:"machine",w:"No swinging",s:"lateral raise machine"}]},
+      {n:"Barbell Curl",eq:"barbell",m:"10–12 × 3 · 1 min",c:"Elbows pinned to your sides",s:"barbell bicep curl",alts:[{n:"EZ Bar Curl",eq:"barbell",w:"Kinder on the wrists",s:"ez bar curl"},{n:"Cable Curl",eq:"cable",w:"Constant tension",s:"cable bicep curl"}]},
+      {n:"Tricep Pushdown Cable",eq:"cable",m:"10–15 × 3 · 1 min",c:"Upper arms still, only the forearm moves",s:"cable tricep pushdown",alts:[{n:"Rope Pushdown",eq:"cable",w:"Spread at the bottom",s:"rope tricep pushdown"},{n:"Dips (upright)",eq:"body",w:"Stay upright to load triceps",s:"parallel bar tricep dip"}]}
+    ],
+    cardio:[
+      {n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy pace — this is a finisher, not a session",s:"treadmill steady state walk",alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"},{n:"Incline Walk",eq:"cardio",w:"Easier on the knees than jogging",s:"treadmill incline walk"}]}
+    ],
+    core:[
+      {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]}
+    ],
+    cooldown:[
+      {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Forearm on the frame, step through gently",s:"doorway pec stretch"},
+      {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Pull the arm across, keep the shoulder down",s:"cross body shoulder stretch"},
+      {n:"Lat Stretch",eq:"body",m:"30 sec each side",c:"Hold a rack, sit your hips back",s:"standing lat stretch"},
+      {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe out and let the ribs sink",s:"childs pose stretch"}
+    ],
+  },
 
-  tue:{label:"Tue",focus:"Lower A",warmup:[
-    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Bike is ideal before squatting",s:"stationary bike warm up"},
-    {n:"Leg Swings",eq:"body",m:"12 each leg, both ways",c:"Front to back, then side to side",s:"leg swings hip mobility"},
-    {n:"Bodyweight Squats",eq:"body",m:"15 reps × 2",c:"Sink to full depth, no weight",s:"bodyweight squat"},
-    {n:"Glute Bridge",eq:"body",m:"15 reps",c:"Wakes the glutes so the squat isn't all quad",s:"glute bridge floor"},
-  ],
+  tue:{label:"Tue",focus:"Quads & Hams",
+    warmup:[
+      {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Bike is ideal before squatting",s:"stationary bike warm up"},
+      {n:"Leg Swings",eq:"body",m:"12 each leg, both ways",c:"Front to back, then side to side",s:"leg swings hip mobility"},
+      {n:"Bodyweight Squats",eq:"body",m:"15 reps × 2",c:"Sink to full depth, no weight",s:"bodyweight squat"},
+      {n:"Glute Bridge",eq:"body",m:"15 reps",c:"Wakes the glutes so the squat isn't all quad",s:"glute bridge floor"}
+    ],
     lift:[
-    {n:"Squats",eq:"barbell",m:"8–12 × 4 · 2–3 min",c:"Your main lift. Take the full rest — this one earns it",s:"barbell back squat",
-     alts:[{n:"Goblet Squat",eq:"db",w:"Easier to stay upright",s:"goblet squat dumbbell"},
-           {n:"Hack Squat",eq:"machine",w:"Fixed path, no balance needed",s:"hack squat machine"},
-           {n:"Leg Press",eq:"machine",w:"If your back is cranky",s:"leg press machine"}]},
-    {n:"Romanian Deadlift",eq:"db",m:"8–12 × 3 · 2 min",c:"Push hips back, soft knees, stop when the hamstrings stretch",s:"romanian deadlift dumbbell",
-     alts:[{n:"Barbell RDL",eq:"barbell",w:"Heavier loading",s:"barbell romanian deadlift"},
-           {n:"Back Extension",eq:"machine",w:"Easier to learn",s:"45 degree back extension"}]},
-    {n:"Leg Press",eq:"machine",m:"10–15 × 3 · 2 min",c:"Feet mid-platform, don't lock the knees out",s:"leg press machine",
-     alts:[{n:"Walking Lunges",eq:"db",w:"More single-leg work",s:"dumbbell walking lunge"},
-           {n:"Leg Extension",eq:"machine",w:"Quads only",s:"leg extension machine"}]},
-    {n:"Lying Leg Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Control the way down, don't let it slam",s:"lying leg curl machine",
-     alts:[{n:"Seated Leg Curl",eq:"machine",w:"Hamstring stretched further",s:"seated leg curl machine"},
-           {n:"Nordic Curl (assisted)",eq:"body",w:"No machine needed",s:"nordic hamstring curl assisted"}]},
-    {n:"Standing Calf Raises",eq:"machine",m:"12–20 × 4 · 1 min",c:"Full stretch at the bottom, pause at the top",s:"standing calf raise machine",
-     alts:[{n:"Smith Machine Calf Raise",eq:"machine",w:"Easier to load heavy",s:"smith machine calf raise"},
-           {n:"Single Leg Calf Raise",eq:"body",w:"No machine needed",s:"single leg calf raise bodyweight"}]}
-  ],cardio:[{n:"Cycling",eq:"cardio",m:"20 min · easy",c:"Keep it gentle — your legs just did the work",s:"stationary bike steady state",
-     alts:[{n:"Incline Walk",eq:"cardio",w:"Easy on tired legs",s:"treadmill incline walk"}]}],
-   core:[{n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",
-     alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]},
-     {n:"Side Plank",eq:"body",m:"30 sec each side × 2",c:"Hips stacked and lifted",s:"side plank hold obliques",
-     alts:[{n:"Cable Crunch",eq:"cable",w:"Loadable, builds the abs",s:"kneeling cable crunch abs"}]}],
-   cooldown:[
-    {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Knees together, push the hip forward",s:"standing quad stretch"},
-    {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Hinge from the hip, flat back",s:"standing hamstring stretch"},
-    {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Half kneeling, squeeze the back glute",s:"kneeling hip flexor stretch"},
-    {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down, lean into the wall",s:"wall calf stretch"},
-    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Let the lower back decompress",s:"childs pose stretch"},
-  ]},
+      {n:"Squats",eq:"barbell",m:"8–12 × 4 · 2–3 min",c:"Your main lift. Take the full rest — this one earns it",s:"barbell back squat",alts:[{n:"Goblet Squat",eq:"db",w:"Easier to stay upright",s:"goblet squat dumbbell"},{n:"Hack Squat",eq:"machine",w:"Fixed path, no balance needed",s:"hack squat machine"},{n:"Leg Press",eq:"machine",w:"If your back is cranky",s:"leg press machine"}]},
+      {n:"Romanian Deadlift",eq:"db",m:"8–12 × 3 · 2 min",c:"Push hips back, soft knees, stop when the hamstrings stretch",s:"romanian deadlift dumbbell",alts:[{n:"Barbell RDL",eq:"barbell",w:"Heavier loading",s:"barbell romanian deadlift"},{n:"Back Extension",eq:"machine",w:"Easier to learn",s:"45 degree back extension"}]},
+      {n:"Leg Press",eq:"machine",m:"10–15 × 3 · 2 min",c:"Feet mid-platform, don't lock the knees out",s:"leg press machine",alts:[{n:"Walking Lunges",eq:"db",w:"More single-leg work",s:"dumbbell walking lunge"},{n:"Leg Extension",eq:"machine",w:"Quads only",s:"leg extension machine"}]},
+      {n:"Lying Leg Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Control the way down, don't let it slam",s:"lying leg curl machine",alts:[{n:"Seated Leg Curl",eq:"machine",w:"Hamstring stretched further",s:"seated leg curl machine"},{n:"Nordic Curl (assisted)",eq:"body",w:"No machine needed",s:"nordic hamstring curl assisted"}]},
+      {n:"Standing Calf Raises",eq:"machine",m:"12–20 × 4 · 1 min",c:"Full stretch at the bottom, pause at the top",s:"standing calf raise machine",alts:[{n:"Smith Machine Calf Raise",eq:"machine",w:"Easier to load heavy",s:"smith machine calf raise"},{n:"Single Leg Calf Raise",eq:"body",w:"No machine needed",s:"single leg calf raise bodyweight"}]}
+    ],
+    cardio:[
+      {n:"Cycling",eq:"cardio",m:"20 min · easy",c:"Keep it gentle — your legs just did the work",s:"stationary bike steady state",alts:[{n:"Incline Walk",eq:"cardio",w:"Easy on tired legs",s:"treadmill incline walk"}]}
+    ],
+    core:[
+      {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]}
+    ],
+    cooldown:[
+      {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Knees together, push the hip forward",s:"standing quad stretch"},
+      {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Hinge from the hip, flat back",s:"standing hamstring stretch"},
+      {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Half kneeling, squeeze the back glute",s:"kneeling hip flexor stretch"},
+      {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down, lean into the wall",s:"wall calf stretch"},
+      {n:"Child's Pose",eq:"body",m:"45 sec",c:"Let the lower back decompress",s:"childs pose stretch"}
+    ],
+  },
 
-  wed:{label:"Wed",focus:"Cardio + Core",warmup:[
-    {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't start cold",s:"treadmill walk warm up"},
-    {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosen the shoulders",s:"standing arm circles"},
-    {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Open the hips before you run",s:"leg swings hip mobility"},
-  ],
-   cardio:[
-    {n:"Steady Cardio",eq:"cardio",m:"35 min · moderate",c:"Conversational pace — you should be able to talk in short sentences",s:"steady state cardio fat loss",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower impact on the knees",s:"stationary bike steady state"},
-           {n:"Cross Trainer",eq:"cardio",w:"Full body, low impact",s:"elliptical cross trainer machine"},
-           {n:"Incline Walk",eq:"cardio",w:"Hardest on the glutes, easiest on the joints",s:"treadmill incline walk"}]}],
-   core:[
-    {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"The only ab move you can add weight to — use it",s:"kneeling cable crunch abs",
-     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
-    {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis, slow on the way down",s:"hanging knee raise abs",
-     alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]},
-    {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time each week, then add a weight plate",s:"forearm plank hold",
-     alts:[{n:"Side Plank",eq:"body",w:"Hits the obliques",s:"side plank hold"}]}],
-   cooldown:[
-    {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back, hinge at the hip",s:"standing hamstring stretch"},
-    {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Half kneeling, glute squeezed",s:"kneeling hip flexor stretch"},
-    {n:"Cobra Stretch",eq:"body",m:"30 sec",c:"Opens the front after all that flexion",s:"cobra pose stretch"},
-    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe and let go",s:"childs pose stretch"},
-  ]},
+  wed:{label:"Wed",focus:"Cardio",
+    warmup:[
+      {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't start cold",s:"treadmill walk warm up"},
+      {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosen the shoulders",s:"standing arm circles"},
+      {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Open the hips before you run",s:"leg swings hip mobility"}
+    ],
+    cardio:[
+      {n:"Steady Cardio",eq:"cardio",m:"35 min · moderate",c:"Conversational pace — you should be able to talk in short sentences",s:"steady state cardio fat loss",alts:[{n:"Cycling",eq:"cardio",w:"Lower impact on the knees",s:"stationary bike steady state"},{n:"Cross Trainer",eq:"cardio",w:"Full body, low impact",s:"elliptical cross trainer machine"},{n:"Incline Walk",eq:"cardio",w:"Hardest on the glutes, easiest on the joints",s:"treadmill incline walk"}]}
+    ],
+    core:[
+      {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time each week, then hold a plate",s:"forearm plank hold",alts:[{n:"Side Plank",eq:"body",w:"Hits the obliques",s:"side plank hold"}]}
+    ],
+    cooldown:[
+      {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back, hinge at the hip",s:"standing hamstring stretch"},
+      {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Half kneeling, glute squeezed",s:"kneeling hip flexor stretch"},
+      {n:"Cobra Stretch",eq:"body",m:"30 sec",c:"Opens the front after all that flexion",s:"cobra pose stretch"},
+      {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe and let go",s:"childs pose stretch"}
+    ],
+  },
 
-  thu:{label:"Thu",focus:"Upper B",warmup:[
-    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Raise body temp",s:"treadmill light warm up jog"},
-    {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Upper back on before you pull",s:"resistance band pull apart"},
-    {n:"Scapular Pull Ups",eq:"body",m:"8 reps × 2",c:"Hang and shrug down — teaches the lats to fire",s:"scapular pull up"},
-    {n:"Push Up",eq:"body",m:"10 easy reps",c:"Primes the chest before pressing",s:"bodyweight push up"},
-  ],
+  thu:{label:"Thu",focus:"Shoulders & Arms",
+    warmup:[
+      {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Raise body temp",s:"treadmill light warm up jog"},
+      {n:"Band Pull Aparts",eq:"cable",m:"15–20 reps × 2",c:"Upper back on before you pull",s:"resistance band pull apart"},
+      {n:"Scapular Pull Ups",eq:"body",m:"8 reps × 2",c:"Hang and shrug down — teaches the lats to fire",s:"scapular pull up"},
+      {n:"Push Up",eq:"body",m:"10 easy reps",c:"Primes the chest before pressing",s:"bodyweight push up"}
+    ],
     lift:[
-    {n:"Incline Bench / DB Press",eq:"db",m:"10–12 × 4 · 2 min",c:"Bench at 30°. Second chest session of the week — that's the point",s:"incline dumbbell press",
-     alts:[{n:"Incline Barbell Press",eq:"barbell",w:"Heavier loading",s:"incline barbell press"},
-           {n:"Incline Machine Press",eq:"machine",w:"Fixed path, easier control",s:"incline chest press machine"}]},
-    {n:"Pull Ups",eq:"body",m:"To failure × 3 · 2 min",c:"Full hang to chin over bar. Add a belt once you clear 12",s:"pull up proper form",
-     alts:[{n:"Assisted Pull Up",eq:"machine",w:"Build up to full ones",s:"assisted pull up machine"},
-           {n:"Lat Pull Down",eq:"machine",w:"Same pattern, scalable load",s:"lat pulldown wide grip"}]},
-    {n:"Chest Supported Row",eq:"machine",m:"10–12 × 3 · 1–2 min",c:"Chest stays on the pad — no heaving",s:"chest supported row machine",
-     alts:[{n:"T-Bar Row",eq:"barbell",w:"Heavier, more lower back",s:"t bar row"},
-           {n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
-    {n:"Cable Cross",eq:"cable",m:"12–15 × 3 · 1 min",c:"Squeeze at the middle, slight elbow bend throughout",s:"cable crossover chest",
-     alts:[{n:"Pec Deck",eq:"machine",w:"Same squeeze, fixed path",s:"pec deck chest fly machine"},
-           {n:"DB Flyes",eq:"db",w:"Bigger stretch at the bottom",s:"dumbbell chest fly"}]},
-    {n:"Cable Lateral Raise",eq:"cable",m:"12–15 × 3 · 1 min",c:"Tension from the very first inch, unlike dumbbells",s:"cable lateral raise",
-     alts:[{n:"Side Lateral Raise",eq:"db",w:"If cables are busy",s:"dumbbell lateral raise"},
-           {n:"Lateral Raise Machine",eq:"machine",w:"No swinging",s:"lateral raise machine"}]},
-    {n:"Face Pull",eq:"cable",m:"15–20 × 3 · 1 min",c:"Pull to the forehead, thumbs back. Best posture move you have",s:"cable face pull rear delt",
-     alts:[{n:"Rear Delt Fly",eq:"machine",w:"Same target, fixed path",s:"rear delt fly machine"},
-           {n:"Band Pull Apart",eq:"cable",w:"Do them anywhere",s:"resistance band pull apart"}]},
-    {n:"Hammer Curl DB",eq:"db",m:"10–12 × 3 · 1 min",c:"Neutral grip — hits the forearm and the outer bicep",s:"hammer curl dumbbell",
-     alts:[{n:"Rope Cable Curl",eq:"cable",w:"Constant tension",s:"rope hammer curl cable"},
-           {n:"Preacher Curl",eq:"machine",w:"No cheating possible",s:"preacher curl machine"}]},
-    {n:"Overhead Extension DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Overhead stretches the long head — the part pushdowns miss",s:"overhead dumbbell tricep extension",
-     alts:[{n:"Skull Crushers",eq:"barbell",w:"Heavier loading",s:"ez bar skull crusher"},
-           {n:"Overhead Rope Extension",eq:"cable",w:"Constant tension",s:"overhead cable tricep extension"}]}
-  ],cardio:[{n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy finisher, not a second workout",s:"treadmill steady state walk",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"}]}],
-   core:[{n:"Plank",eq:"body",m:"45 sec × 3",c:"Add 5 sec a week, then hold a plate",s:"forearm plank hold",
-     alts:[{n:"Side Plank",eq:"body",w:"Hits obliques",s:"side plank hold"}]},
-     {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",
-     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]}],
-   cooldown:[
-    {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Step through gently",s:"doorway pec stretch"},
-    {n:"Lat Stretch",eq:"body",m:"30 sec each side",c:"Hold the rack, sit the hips back",s:"standing lat stretch"},
-    {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Keep the shoulder down",s:"cross body shoulder stretch"},
-    {n:"Overhead Tricep Stretch",eq:"body",m:"30 sec each arm",c:"Elbow up, gentle pull",s:"overhead tricep stretch"},
-  ]},
+      {n:"Overhead Press DB",eq:"db",m:"8–12 × 3 · 2–3 min",c:"Main press of the day — take the full rest. Press up and slightly back, ribs down",s:"seated dumbbell shoulder press",alts:[{n:"Barbell Overhead Press",eq:"barbell",w:"Heavier loading",s:"standing barbell overhead press"},{n:"Shoulder Press Machine",eq:"machine",w:"Fixed path, easier control",s:"shoulder press machine"}]},
+      {n:"Incline Bench / DB Press",eq:"db",m:"10–12 × 4 · 2 min",c:"Bench at 30°. Your second chest session of the week",s:"incline dumbbell press",alts:[{n:"Incline Barbell Press",eq:"barbell",w:"Heavier loading",s:"incline barbell press"},{n:"Incline Machine Press",eq:"machine",w:"Fixed path, easier control",s:"incline chest press machine"}]},
+      {n:"Pull Ups",eq:"body",m:"To failure × 3 · 2 min",c:"Full hang to chin over bar. Add a belt once you clear 12",s:"pull up proper form",alts:[{n:"Assisted Pull Up",eq:"machine",w:"Build up to full ones",s:"assisted pull up machine"},{n:"Lat Pull Down",eq:"machine",w:"Same pattern, scalable load",s:"lat pulldown wide grip"}]},
+      {n:"Chest Supported Row",eq:"machine",m:"10–12 × 3 · 1–2 min",c:"Chest stays on the pad — no heaving",s:"chest supported row machine",alts:[{n:"T-Bar Row",eq:"barbell",w:"Heavier, more lower back",s:"t bar row"},{n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
+      {n:"Cable Lateral Raise",eq:"cable",m:"12–15 × 3 · 1 min",c:"Tension from the very first inch, unlike dumbbells",s:"cable lateral raise",alts:[{n:"Side Lateral Raise",eq:"db",w:"If cables are busy",s:"dumbbell lateral raise"},{n:"Lateral Raise Machine",eq:"machine",w:"No swinging",s:"lateral raise machine"}]},
+      {n:"Face Pull",eq:"cable",m:"15–20 × 3 · 1 min",c:"Pull to the forehead, thumbs back. Best posture move you have",s:"cable face pull rear delt",alts:[{n:"Rear Delt Fly",eq:"machine",w:"Same target, fixed path",s:"rear delt fly machine"},{n:"Band Pull Apart",eq:"cable",w:"Do them anywhere",s:"resistance band pull apart"}]},
+      {n:"Hammer Curl DB",eq:"db",m:"10–12 × 3 · 1 min",c:"Neutral grip — hits the forearm and the outer bicep",s:"hammer curl dumbbell",alts:[{n:"Rope Cable Curl",eq:"cable",w:"Constant tension",s:"rope hammer curl cable"},{n:"Preacher Curl",eq:"machine",w:"No cheating possible",s:"preacher curl machine"}]},
+      {n:"Overhead Extension DB",eq:"db",m:"10–15 × 3 · 1 min",c:"Overhead stretches the long head — the part pushdowns miss",s:"overhead dumbbell tricep extension",alts:[{n:"Skull Crushers",eq:"barbell",w:"Heavier loading",s:"ez bar skull crusher"},{n:"Overhead Rope Extension",eq:"cable",w:"Constant tension",s:"overhead cable tricep extension"}]}
+    ],
+    cardio:[
+      {n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy finisher, not a second workout",s:"treadmill steady state walk",alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"}]}
+    ],
+    core:[
+      {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]}
+    ],
+    cooldown:[
+      {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Step through gently",s:"doorway pec stretch"},
+      {n:"Lat Stretch",eq:"body",m:"30 sec each side",c:"Hold the rack, sit the hips back",s:"standing lat stretch"},
+      {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Keep the shoulder down",s:"cross body shoulder stretch"},
+      {n:"Overhead Tricep Stretch",eq:"body",m:"30 sec each arm",c:"Elbow up, gentle pull",s:"overhead tricep stretch"}
+    ],
+  },
 
-  fri:{label:"Fri",focus:"Lower B",warmup:[
-    {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Bike or walk",s:"stationary bike warm up"},
-    {n:"Leg Swings",eq:"body",m:"12 each leg, both ways",c:"Open the hips",s:"leg swings hip mobility"},
-    {n:"Glute Bridge",eq:"body",m:"15 reps × 2",c:"Glutes on before hip thrusts",s:"glute bridge floor"},
-    {n:"Walking Knee Hugs",eq:"body",m:"10 each leg",c:"Loosen the hips and hamstrings",s:"walking knee hug warm up"},
-  ],
+  fri:{label:"Fri",focus:"Glutes & Hams",
+    warmup:[
+      {n:"Light Cardio",eq:"cardio",m:"5 min easy",c:"Bike or walk",s:"stationary bike warm up"},
+      {n:"Leg Swings",eq:"body",m:"12 each leg, both ways",c:"Open the hips",s:"leg swings hip mobility"},
+      {n:"Glute Bridge",eq:"body",m:"15 reps × 2",c:"Glutes on before hip thrusts",s:"glute bridge floor"},
+      {n:"Walking Knee Hugs",eq:"body",m:"10 each leg",c:"Loosen the hips and hamstrings",s:"walking knee hug warm up"}
+    ],
     lift:[
-    {n:"Hip Thrust",eq:"barbell",m:"8–12 × 4 · 2 min",c:"Chin tucked, pause at the top and squeeze. Your glutes were the biggest gap in the old plan",s:"barbell hip thrust",
-     alts:[{n:"Glute Bridge (barbell)",eq:"barbell",w:"No bench needed",s:"barbell glute bridge"},
-           {n:"Hip Thrust Machine",eq:"machine",w:"Much easier to set up",s:"hip thrust machine"},
-           {n:"Single Leg Hip Thrust",eq:"body",w:"No bar needed",s:"single leg hip thrust"}]},
-    {n:"Bulgarian Split Squat",eq:"db",m:"8–12 each leg × 3 · 2 min",c:"Rear foot on a bench. Brutal, and the best single-leg builder there is",s:"bulgarian split squat dumbbell",
-     alts:[{n:"Walking Lunges",eq:"db",w:"Less balance required",s:"dumbbell walking lunge"},
-           {n:"Step Ups",eq:"db",w:"Kinder on the knees",s:"dumbbell step up"},
-           {n:"Reverse Lunge",eq:"db",w:"Easiest on the knees",s:"dumbbell reverse lunge"}]},
-    {n:"Seated Leg Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Seated stretches the hamstring more than lying — worth having both in the week",s:"seated leg curl machine",
-     alts:[{n:"Lying Leg Curl",eq:"machine",w:"If the seated one is taken",s:"lying leg curl machine"},
-           {n:"Nordic Curl (assisted)",eq:"body",w:"No machine needed",s:"nordic hamstring curl assisted"}]},
-    {n:"Leg Press (feet high)",eq:"machine",m:"10–15 × 3 · 2 min",c:"Feet high on the platform shifts work to glutes and hamstrings",s:"leg press feet high glutes",
-     alts:[{n:"Leg Extension",eq:"machine",w:"Quads instead, if they feel behind",s:"leg extension machine"},
-           {n:"Goblet Squat",eq:"db",w:"No machine needed",s:"goblet squat dumbbell"}]},
-    {n:"Seated Calf Raises",eq:"machine",m:"12–20 × 4 · 1 min",c:"Seated hits the soleus — the standing version misses it",s:"seated calf raise machine",
-     alts:[{n:"Standing Calf Raises",eq:"machine",w:"Hits the other calf muscle",s:"standing calf raise machine"},
-           {n:"Single Leg Calf Raise",eq:"body",w:"No machine needed",s:"single leg calf raise bodyweight"}]}
-  ],cardio:[{n:"Incline Walk",eq:"cardio",m:"20 min · moderate incline",c:"Gentle on legs that just worked",s:"treadmill incline walk",
-     alts:[{n:"Cycling",eq:"cardio",w:"Lower impact",s:"stationary bike cycling"}]}],
-   core:[{n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Add weight over the weeks like any other lift",s:"kneeling cable crunch abs",
-     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
-     {n:"Side Plank",eq:"body",m:"30 sec each side × 2",c:"Hips stacked and lifted",s:"side plank hold obliques",
-     alts:[{n:"Hanging Knee Raise",eq:"body",w:"Works the lower abs through a range",s:"hanging knee raise abs"}]}],
-   cooldown:[
-    {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Push the hip forward",s:"standing quad stretch"},
-    {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back",s:"standing hamstring stretch"},
-    {n:"Figure-4 Glute Stretch",eq:"body",m:"30 sec each side",c:"Ankle over knee, pull the thigh in",s:"figure four glute stretch"},
-    {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down",s:"wall calf stretch"},
-    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Let the hips settle",s:"childs pose stretch"},
-  ]},
+      {n:"Hip Thrust",eq:"barbell",m:"8–12 × 4 · 2 min",c:"Chin tucked, pause at the top and squeeze. Your glutes were the biggest gap in the old plan",s:"barbell hip thrust",alts:[{n:"Glute Bridge (barbell)",eq:"barbell",w:"No bench needed",s:"barbell glute bridge"},{n:"Hip Thrust Machine",eq:"machine",w:"Much easier to set up",s:"hip thrust machine"},{n:"Single Leg Hip Thrust",eq:"body",w:"No bar needed",s:"single leg hip thrust"}]},
+      {n:"Bulgarian Split Squat",eq:"db",m:"8–12 each leg × 3 · 2 min",c:"Rear foot on a bench. Brutal, and the best single-leg builder there is",s:"bulgarian split squat dumbbell",alts:[{n:"Walking Lunges",eq:"db",w:"Less balance required",s:"dumbbell walking lunge"},{n:"Step Ups",eq:"db",w:"Kinder on the knees",s:"dumbbell step up"},{n:"Reverse Lunge",eq:"db",w:"Easiest on the knees",s:"dumbbell reverse lunge"}]},
+      {n:"Seated Leg Curl",eq:"machine",m:"10–15 × 3 · 1 min",c:"Seated stretches the hamstring more than lying — worth having both in the week",s:"seated leg curl machine",alts:[{n:"Lying Leg Curl",eq:"machine",w:"If the seated one is taken",s:"lying leg curl machine"},{n:"Nordic Curl (assisted)",eq:"body",w:"No machine needed",s:"nordic hamstring curl assisted"}]},
+      {n:"Leg Press (feet high)",eq:"machine",m:"10–15 × 3 · 2 min",c:"Feet high on the platform shifts work to glutes and hamstrings",s:"leg press feet high glutes",alts:[{n:"Leg Extension",eq:"machine",w:"Quads instead, if they feel behind",s:"leg extension machine"},{n:"Goblet Squat",eq:"db",w:"No machine needed",s:"goblet squat dumbbell"}]},
+      {n:"Seated Calf Raises",eq:"machine",m:"12–20 × 4 · 1 min",c:"Seated hits the soleus — the standing version misses it",s:"seated calf raise machine",alts:[{n:"Standing Calf Raises",eq:"machine",w:"Hits the other calf muscle",s:"standing calf raise machine"},{n:"Single Leg Calf Raise",eq:"body",w:"No machine needed",s:"single leg calf raise bodyweight"}]}
+    ],
+    cardio:[
+      {n:"Incline Walk",eq:"cardio",m:"20 min · moderate incline",c:"Gentle on legs that just worked",s:"treadmill incline walk",alts:[{n:"Cycling",eq:"cardio",w:"Lower impact",s:"stationary bike cycling"}]}
+    ],
+    core:[
+      {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]}
+    ],
+    cooldown:[
+      {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Push the hip forward",s:"standing quad stretch"},
+      {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back",s:"standing hamstring stretch"},
+      {n:"Figure-4 Glute Stretch",eq:"body",m:"30 sec each side",c:"Ankle over knee, pull the thigh in",s:"figure four glute stretch"},
+      {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down",s:"wall calf stretch"},
+      {n:"Child's Pose",eq:"body",m:"45 sec",c:"Let the hips settle",s:"childs pose stretch"}
+    ],
+  },
 
-  sat:{label:"Sat",focus:"HIIT + Core",warmup:[
-    {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't sprint cold",s:"treadmill walk warm up"},
-    {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Open the hips before intervals",s:"leg swings hip mobility"},
-    {n:"High Knees",eq:"body",m:"30 sec × 2",c:"Get the heart rate climbing",s:"high knees warm up drill"},
-  ],
-   cardio:[
-    {n:"Treadmill Intervals",eq:"cardio",m:"1 min fast / 1 min walk × 8–10",c:"Hard but not a sprint — you should finish all ten rounds at the same pace",s:"treadmill hiit intervals",
-     alts:[{n:"Bike Intervals",eq:"cardio",w:"Much easier on the joints",s:"stationary bike hiit intervals"},
-           {n:"Rower Intervals",eq:"cardio",w:"Full body",s:"rowing machine intervals"}]},
-    {n:"Incline Walk finisher",eq:"cardio",m:"10 min · moderate incline",c:"Bring the heart rate down gradually",s:"treadmill incline walk"}],
-   core:[
-    {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, slow down",s:"hanging knee raise abs",
-     alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out",s:"lying leg raise abs"}]},
-    {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",
-     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
-    {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time, then add a plate",s:"forearm plank hold",
-     alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank hold"}]}],
-   cooldown:[
-    {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back",s:"standing hamstring stretch"},
-    {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Squeeze the back glute",s:"kneeling hip flexor stretch"},
-    {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down",s:"wall calf stretch"},
-    {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe out and sink",s:"childs pose stretch"},
-  ]},
+  sat:{label:"Sat",focus:"Core + HIIT",
+    warmup:[
+      {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't sprint cold",s:"treadmill walk warm up"},
+      {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Open the hips before intervals",s:"leg swings hip mobility"},
+      {n:"High Knees",eq:"body",m:"30 sec × 2",c:"Get the heart rate climbing",s:"high knees warm up drill"}
+    ],
+    cardio:[
+      {n:"Treadmill Intervals",eq:"cardio",m:"1 min fast / 1 min walk × 8–10",c:"Hard but not a sprint — you should finish all ten rounds at the same pace",s:"treadmill hiit intervals",alts:[{n:"Bike Intervals",eq:"cardio",w:"Much easier on the joints",s:"stationary bike hiit intervals"},{n:"Rower Intervals",eq:"cardio",w:"Full body",s:"rowing machine intervals"}]},
+      {n:"Incline Walk finisher",eq:"cardio",m:"10 min · moderate incline",c:"Bring the heart rate down gradually",s:"treadmill incline walk"}
+    ],
+    core:[
+      {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
+      {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]},
+      {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time each week, then hold a plate",s:"forearm plank hold",alts:[{n:"Side Plank",eq:"body",w:"Hits the obliques",s:"side plank hold"}]},
+      {n:"Side Plank",eq:"body",m:"30 sec each side × 2",c:"Hips stacked and lifted",s:"side plank hold obliques",alts:[{n:"Cable Crunch",eq:"cable",w:"Loadable, builds the abs",s:"kneeling cable crunch abs"}]}
+    ],
+    cooldown:[
+      {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back",s:"standing hamstring stretch"},
+      {n:"Hip Flexor Stretch",eq:"body",m:"30 sec each side",c:"Squeeze the back glute",s:"kneeling hip flexor stretch"},
+      {n:"Calf Stretch",eq:"body",m:"30 sec each leg",c:"Back heel down",s:"wall calf stretch"},
+      {n:"Child's Pose",eq:"body",m:"45 sec",c:"Breathe out and sink",s:"childs pose stretch"}
+    ],
+  },
 
   sun:{label:"Sun",focus:"Rest",rest:true},
 };
@@ -662,6 +616,17 @@ function drawBar(){
       });
       if(Object.keys(out).length)put(wKey(day),JSON.stringify(out));
     });
+  }catch(e){}
+})();
+
+
+/* swaps are stored by list position; v21 moved exercises within days, so
+   clear saved swaps once rather than show a substitution on the wrong row */
+(function resetStaleSwaps(){
+  try{
+    if(get("lc:swapv")==="2")return;
+    order.forEach(day=>{try{localStorage.removeItem(wKey(day));}catch(e){delete mem[wKey(day)];}});
+    put("lc:swapv","2");
   }catch(e){}
 })();
 
