@@ -214,7 +214,7 @@
     <div class="spine" id="spine"></div>
   </div>
   <div id="view"></div>
-  <div class="build">build <b>v19</b></div>
+  <div class="build">build <b>v20</b></div>
 </div>
 
 <div class="bar" id="bar"><div class="bar-in">
@@ -261,10 +261,10 @@ const PLAN = {
   ],cardio:[{n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy pace — this is a finisher, not a session",s:"treadmill steady state walk",
      alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"},
            {n:"Incline Walk",eq:"cardio",w:"Easier on the knees than jogging",s:"treadmill incline walk"}]}],
-   core:[{n:"Plank",eq:"body",m:"30–45 sec × 3",c:"Straight line head to heels, squeeze glutes",s:"forearm plank hold",
+   core:[{n:"Plank",eq:"body",m:"30–45 sec × 3",c:"Straight line head to heels. Add time each week, then hold a plate",s:"forearm plank hold",
      alts:[{n:"Knee Plank",eq:"body",w:"Easier version",s:"plank on knees modified"}]},
-     {n:"Dead Bug",eq:"body",m:"8 each side × 3",c:"Lower back stays flat on the floor the whole time",s:"dead bug core exercise",
-     alts:[{n:"Leg Raises",eq:"body",w:"If your back stays flat",s:"lying leg raise abs"}]}],
+     {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",
+     alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]}],
    cooldown:[
     {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Forearm on the frame, step through gently",s:"doorway pec stretch"},
     {n:"Cross-Body Shoulder Stretch",eq:"body",m:"30 sec each arm",c:"Pull the arm across, keep the shoulder down",s:"cross body shoulder stretch"},
@@ -300,7 +300,7 @@ const PLAN = {
    core:[{n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, don't just swing the legs",s:"hanging knee raise abs",
      alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]},
      {n:"Side Plank",eq:"body",m:"30 sec each side × 2",c:"Hips stacked and lifted",s:"side plank hold obliques",
-     alts:[{n:"Pallof Press",eq:"cable",w:"Resists rotation, loadable",s:"pallof press cable core"}]}],
+     alts:[{n:"Cable Crunch",eq:"cable",w:"Loadable, builds the abs",s:"kneeling cable crunch abs"}]}],
    cooldown:[
     {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Knees together, push the hip forward",s:"standing quad stretch"},
     {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Hinge from the hip, flat back",s:"standing hamstring stretch"},
@@ -322,8 +322,6 @@ const PLAN = {
    core:[
     {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"The only ab move you can add weight to — use it",s:"kneeling cable crunch abs",
      alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
-    {n:"Pallof Press",eq:"cable",m:"10 each side × 3",c:"Resist the twist — that's the whole exercise",s:"pallof press cable anti rotation",
-     alts:[{n:"Russian Twists",eq:"body",w:"No cable needed",s:"russian twist obliques"}]},
     {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis, slow on the way down",s:"hanging knee raise abs",
      alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out first",s:"lying leg raise abs"}]},
     {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time each week, then add a weight plate",s:"forearm plank hold",
@@ -370,8 +368,8 @@ const PLAN = {
      alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"}]}],
    core:[{n:"Plank",eq:"body",m:"45 sec × 3",c:"Add 5 sec a week, then hold a plate",s:"forearm plank hold",
      alts:[{n:"Side Plank",eq:"body",w:"Hits obliques",s:"side plank hold"}]},
-     {n:"Dead Bug",eq:"body",m:"8 each side × 3",c:"Back flat, move slowly",s:"dead bug core exercise",
-     alts:[{n:"Crunches",eq:"body",w:"Simpler option",s:"floor abdominal crunch"}]}],
+     {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",
+     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]}],
    cooldown:[
     {n:"Doorway Chest Stretch",eq:"body",m:"30 sec each side",c:"Step through gently",s:"doorway pec stretch"},
     {n:"Lat Stretch",eq:"body",m:"30 sec each side",c:"Hold the rack, sit the hips back",s:"standing lat stretch"},
@@ -408,7 +406,7 @@ const PLAN = {
    core:[{n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Add weight over the weeks like any other lift",s:"kneeling cable crunch abs",
      alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
      {n:"Side Plank",eq:"body",m:"30 sec each side × 2",c:"Hips stacked and lifted",s:"side plank hold obliques",
-     alts:[{n:"Pallof Press",eq:"cable",w:"Loadable anti-rotation",s:"pallof press cable core"}]}],
+     alts:[{n:"Hanging Knee Raise",eq:"body",w:"Works the lower abs through a range",s:"hanging knee raise abs"}]}],
    cooldown:[
     {n:"Quad Stretch",eq:"body",m:"30 sec each leg",c:"Push the hip forward",s:"standing quad stretch"},
     {n:"Hamstring Stretch",eq:"body",m:"30 sec each leg",c:"Flat back",s:"standing hamstring stretch"},
@@ -430,8 +428,8 @@ const PLAN = {
    core:[
     {n:"Hanging Knee Raise",eq:"body",m:"10–15 × 3",c:"Curl the pelvis up, slow down",s:"hanging knee raise abs",
      alts:[{n:"Lying Leg Raises",eq:"body",w:"If grip gives out",s:"lying leg raise abs"}]},
-    {n:"Pallof Press",eq:"cable",m:"10 each side × 3",c:"Resist the twist",s:"pallof press cable anti rotation",
-     alts:[{n:"Russian Twists",eq:"body",w:"No cable needed",s:"russian twist obliques"}]},
+    {n:"Cable Crunch",eq:"cable",m:"12–15 × 3",c:"Round down through the spine, hips still. Add weight over the weeks",s:"kneeling cable crunch abs",
+     alts:[{n:"Crunches",eq:"body",w:"If the cable is taken",s:"floor abdominal crunch"}]},
     {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time, then add a plate",s:"forearm plank hold",
      alts:[{n:"Side Plank",eq:"body",w:"Obliques",s:"side plank hold"}]}],
    cooldown:[
