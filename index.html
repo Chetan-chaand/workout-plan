@@ -214,7 +214,7 @@
     <div class="spine" id="spine"></div>
   </div>
   <div id="view"></div>
-  <div class="build">build <b>v21</b></div>
+  <div class="build">build <b>v22</b></div>
 </div>
 
 <div class="bar" id="bar"><div class="bar-in">
@@ -289,14 +289,20 @@ const PLAN = {
     ],
   },
 
-  wed:{label:"Wed",focus:"Cardio",
+  wed:{label:"Wed",focus:"Conditioning",
     warmup:[
       {n:"Easy Walk",eq:"cardio",m:"5 min",c:"Gradual build — don't start cold",s:"treadmill walk warm up"},
       {n:"Arm Circles",eq:"body",m:"30 sec each direction",c:"Loosen the shoulders",s:"standing arm circles"},
       {n:"Leg Swings",eq:"body",m:"12 each leg",c:"Open the hips before you run",s:"leg swings hip mobility"}
     ],
+    lift:[
+      {n:"Farmer's Carry",eq:"db",m:"40 m × 4 · 1 min",c:"Heavy dumbbells, stand tall, brace and walk. Grip, traps, core and legs all work",s:"farmers carry dumbbell",alts:[{n:"Suitcase Carry",eq:"db",w:"One side only — hits the obliques",s:"suitcase carry single arm"},{n:"Trap Bar Carry",eq:"barbell",w:"Heavier loading",s:"trap bar farmers carry"}]},
+      {n:"Kettlebell Swings",eq:"kb",m:"15 × 4 · 1 min",c:"Snap the hips — it's a hinge, not a squat. Keep it moderate, Tuesday was legs",s:"kettlebell swing proper form",alts:[{n:"Dumbbell Swing",eq:"db",w:"If there's no kettlebell",s:"dumbbell swing"},{n:"Cable Pull-Through",eq:"cable",w:"Easier to learn the hinge",s:"cable pull through glutes"}]},
+      {n:"Rear Delt Fly",eq:"machine",m:"15 × 3 · 1 min",c:"Light and slow, squeeze the back of the shoulders",s:"rear delt fly machine",alts:[{n:"Reverse DB Fly",eq:"db",w:"Bent over, no machine needed",s:"bent over reverse dumbbell fly"},{n:"Reverse Cable Fly",eq:"cable",w:"Constant tension",s:"reverse cable fly rear delt"}]},
+      {n:"Seated Calf Raise",eq:"machine",m:"15–20 × 3 · 1 min",c:"Full stretch at the bottom, pause at the top",s:"seated calf raise machine",alts:[{n:"Standing Calf Raises",eq:"machine",w:"Hits the other calf muscle",s:"standing calf raise machine"},{n:"Single Leg Calf Raise",eq:"body",w:"No machine needed",s:"single leg calf raise bodyweight"}]}
+    ],
     cardio:[
-      {n:"Steady Cardio",eq:"cardio",m:"35 min · moderate",c:"Conversational pace — you should be able to talk in short sentences",s:"steady state cardio fat loss",alts:[{n:"Cycling",eq:"cardio",w:"Lower impact on the knees",s:"stationary bike steady state"},{n:"Cross Trainer",eq:"cardio",w:"Full body, low impact",s:"elliptical cross trainer machine"},{n:"Incline Walk",eq:"cardio",w:"Hardest on the glutes, easiest on the joints",s:"treadmill incline walk"}]}
+      {n:"Incline Walk",eq:"cardio",m:"15 min · moderate incline",c:"Steady finisher — brisk, not a run",s:"treadmill incline walk",alts:[{n:"Cycling",eq:"cardio",w:"Lower impact on the knees",s:"stationary bike steady state"},{n:"Cross Trainer",eq:"cardio",w:"Full body, low impact",s:"elliptical cross trainer machine"}]}
     ],
     core:[
       {n:"Plank",eq:"body",m:"45–60 sec × 3",c:"Add time each week, then hold a plate",s:"forearm plank hold",alts:[{n:"Side Plank",eq:"body",w:"Hits the obliques",s:"side plank hold"}]}
@@ -398,7 +404,7 @@ const PLAN = {
 
 const SECS=["warmup","lift","cardio","core","cooldown"];
 const SEC={warmup:"Warm up",lift:"Lift",cardio:"Cardio",core:"Core",cooldown:"Cool down"};
-const GEAR={machine:"Machine",db:"Dumbbell",barbell:"Barbell",cable:"Cable",body:"Bodyweight",cardio:"Cardio"};
+const GEAR={machine:"Machine",db:"Dumbbell",kb:"Kettlebell",barbell:"Barbell",cable:"Cable",body:"Bodyweight",cardio:"Cardio"};
 const DAYNAME={mon:"Monday",tue:"Tuesday",wed:"Wednesday",thu:"Thursday",
                fri:"Friday",sat:"Saturday",sun:"Sunday"};
 const order=["mon","tue","wed","thu","fri","sat","sun"];
@@ -620,13 +626,16 @@ function drawBar(){
 })();
 
 
-/* swaps are stored by list position; v21 moved exercises within days, so
-   clear saved swaps once rather than show a substitution on the wrong row */
+/* swaps are stored by list position. v21 moved exercises within every day;
+   v22 rebuilt Wednesday. Clear only what moved, once, rather than show a
+   substitution on the wrong row. */
 (function resetStaleSwaps(){
   try{
-    if(get("lc:swapv")==="2")return;
-    order.forEach(day=>{try{localStorage.removeItem(wKey(day));}catch(e){delete mem[wKey(day)];}});
-    put("lc:swapv","2");
+    const v=get("lc:swapv");
+    if(v==="3")return;
+    const drop=v==="2"?["wed"]:order;
+    drop.forEach(day=>{try{localStorage.removeItem(wKey(day));}catch(e){delete mem[wKey(day)];}});
+    put("lc:swapv","3");
   }catch(e){}
 })();
 
