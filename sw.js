@@ -1,4 +1,4 @@
-const CACHE = "leancut-v24";
+const CACHE = "leancut-v25";
 const ASSETS = [
   "./",
   "./index.html",
