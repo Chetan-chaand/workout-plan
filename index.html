@@ -214,7 +214,7 @@
     <div class="spine" id="spine"></div>
   </div>
   <div id="view"></div>
-  <div class="build">build <b>v26</b></div>
+  <div class="build">build <b>v27</b></div>
 </div>
 
 <div class="bar" id="bar"><div class="bar-in">
@@ -241,7 +241,8 @@ const PLAN = {
       {n:"Flat Bench / DB Press",eq:"barbell",m:"8–12 × 4 · 2–3 min",c:"Your main press. Rest the full 2–3 min — short rests cost you reps on later sets",s:"flat barbell bench press",alts:[{n:"Flat DB Press",eq:"db",w:"More stretch, easier on shoulders",s:"flat dumbbell press"},{n:"Chest Press Machine",eq:"machine",w:"Safest, no spotter needed",s:"chest press machine"}]},
       {n:"Incline Bench / DB Press",eq:"db",m:"8–12 × 3 · 2 min",c:"Bench at 30°, press up and slightly back",s:"incline dumbbell press",alts:[{n:"Incline Barbell Press",eq:"barbell",w:"Heavier loading",s:"incline barbell press"},{n:"Incline Machine Press",eq:"machine",w:"Fixed path, easier control",s:"incline chest press machine"}]},
       {n:"Dips (chest lean)",eq:"body",m:"8–12 × 3 · 2 min",c:"Lean forward, elbows out a little, lower into a deep chest stretch. Add a dip belt once 12 is easy",s:"parallel bar chest dip",alts:[{n:"Assisted Dip Machine",eq:"machine",w:"Build up to full dips",s:"assisted dip machine"},{n:"Decline DB Press",eq:"db",w:"No dip bars needed",s:"decline dumbbell press"}]},
-      {n:"Cable Cross",eq:"cable",m:"12–15 × 3 · 1 min",c:"Squeeze at the middle, slight elbow bend throughout",s:"cable crossover chest",alts:[{n:"Pec Deck",eq:"machine",w:"Same squeeze, fixed path",s:"pec deck chest fly machine"},{n:"DB Flyes",eq:"db",w:"Bigger stretch at the bottom",s:"dumbbell chest fly"}]}
+      {n:"Cable Cross",eq:"cable",m:"12–15 × 3 · 1 min",c:"Squeeze at the middle, slight elbow bend throughout",s:"cable crossover chest",alts:[{n:"Incline DB Fly",eq:"db",w:"Upper-chest stretch",s:"incline dumbbell fly"},{n:"DB Flyes",eq:"db",w:"Bigger stretch at the bottom",s:"dumbbell chest fly"}]},
+      {n:"Pec Deck",eq:"machine",m:"12–15 × 3 · 1 min",c:"Slight bend in the elbows, squeeze for a second where the handles meet",s:"pec deck chest fly machine",alts:[{n:"DB Flyes",eq:"db",w:"Bigger stretch at the bottom",s:"dumbbell chest fly"},{n:"Low-to-High Cable Fly",eq:"cable",w:"Leans on the upper chest",s:"low to high cable fly"}]}
     ],
     cardio:[
       {n:"Treadmill",eq:"cardio",m:"20 min · easy",c:"Easy pace — this is a finisher, not a session",s:"treadmill steady state walk",alts:[{n:"Cycling",eq:"cardio",w:"Lower joint impact",s:"stationary bike cycling"},{n:"Incline Walk",eq:"cardio",w:"Easier on the knees than jogging",s:"treadmill incline walk"}]}
@@ -267,8 +268,9 @@ const PLAN = {
     lift:[
       {n:"Pull Ups",eq:"body",m:"To failure × 3 · 2 min",c:"Full hang to chin over bar. Add a belt once you clear 12",s:"pull up proper form",alts:[{n:"Assisted Pull Up",eq:"machine",w:"Build up to full ones",s:"assisted pull up machine"},{n:"Band-Assisted Pull Up",eq:"body",w:"Band under the knees takes some weight",s:"band assisted pull up"}]},
       {n:"Lat Pull Down",eq:"machine",m:"10–12 × 3 · 2 min",c:"Drive elbows down to your ribs, chest tall",s:"lat pulldown wide grip",alts:[{n:"Close-Grip Pulldown",eq:"machine",w:"Neutral grip, more lower lats",s:"close grip lat pulldown"},{n:"Assisted Pull Up",eq:"machine",w:"Bridge to full pull ups",s:"assisted pull up machine"}]},
-      {n:"Chest Supported Row",eq:"machine",m:"8–12 × 3 · 2 min",c:"Chest stays on the pad — no heaving",s:"chest supported row machine",alts:[{n:"T-Bar Row",eq:"barbell",w:"Heavier, more lower back",s:"t bar row"},{n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
-      {n:"Single Arm Row DB",eq:"db",m:"10–12 × 3 · 1–2 min",c:"Pull to the hip, no twisting through the spine",s:"one arm dumbbell row",alts:[{n:"Meadows Row",eq:"barbell",w:"Landmine one-arm row — bigger stretch",s:"meadows row landmine"},{n:"Seated Cable Row",eq:"cable",w:"Constant tension",s:"seated cable row"}]},
+      {n:"Chest Supported Row",eq:"machine",m:"8–12 × 3 · 2 min",c:"Chest stays on the pad — no heaving",s:"chest supported row machine",alts:[{n:"T-Bar Row",eq:"barbell",w:"Heavier, more lower back",s:"t bar row"},{n:"Machine Row",eq:"machine",w:"Fixed path, easy to load",s:"seated machine row"}]},
+      {n:"Single Arm Row DB",eq:"db",m:"10–12 × 3 · 1–2 min",c:"Pull to the hip, no twisting through the spine",s:"one arm dumbbell row",alts:[{n:"Meadows Row",eq:"barbell",w:"Landmine one-arm row — bigger stretch",s:"meadows row landmine"},{n:"Single Arm Cable Row",eq:"cable",w:"Constant tension through the whole pull",s:"single arm cable row"}]},
+      {n:"Seated Cable Row",eq:"cable",m:"10–12 × 3 · 1–2 min",c:"Chest up, pull to the lower ribs, let the shoulders reach forward at the start",s:"seated cable row",alts:[{n:"Wide-Grip Cable Row",eq:"cable",w:"More upper back and rear delts",s:"wide grip seated cable row"},{n:"T-Bar Row",eq:"barbell",w:"Heavier loading",s:"t bar row"}]},
       {n:"Straight-Arm Pulldown",eq:"cable",m:"12–15 × 2 · 1 min",c:"Arms nearly straight, sweep the bar to your thighs and squeeze the lats",s:"straight arm cable pulldown lats",alts:[{n:"Dumbbell Pullover",eq:"db",w:"No cable needed",s:"dumbbell pullover lats"},{n:"Rope Straight-Arm Pulldown",eq:"cable",w:"Rope lets the hands finish wider",s:"rope straight arm pulldown"}]}
     ],
     cardio:[
@@ -296,7 +298,8 @@ const PLAN = {
       {n:"Overhead Press DB",eq:"db",m:"8–12 × 3 · 2–3 min",c:"Main press of the day — take the full rest. Press up and slightly back, ribs down",s:"seated dumbbell shoulder press",alts:[{n:"Barbell Overhead Press",eq:"barbell",w:"Heavier loading",s:"standing barbell overhead press"},{n:"Shoulder Press Machine",eq:"machine",w:"Fixed path, easier control",s:"shoulder press machine"}]},
       {n:"Cable Lateral Raise",eq:"cable",m:"12–15 × 4 · 1 min",c:"Tension from the very first inch, unlike dumbbells",s:"cable lateral raise",alts:[{n:"Cable Y-Raise",eq:"cable",w:"Both arms, cables crossed, raise in a Y",s:"cable y raise"},{n:"Behind-the-Back Cable Lateral",eq:"cable",w:"Cable runs behind you — more stretch",s:"behind the back cable lateral raise"}]},
       {n:"Side Lateral Raise",eq:"db",m:"12–15 × 3 · 1 min",c:"Lead with the elbow, stop at shoulder height",s:"dumbbell lateral raise",alts:[{n:"Seated DB Lateral Raise",eq:"db",w:"Sitting removes the body swing",s:"seated dumbbell lateral raise"},{n:"Lean-Away Lateral Raise",eq:"db",w:"One arm, holding a rack — bigger range at the bottom",s:"lean away lateral raise"}]},
-      {n:"Face Pull",eq:"cable",m:"15–20 × 3 · 1 min",c:"Pull to the forehead, thumbs back. Best posture move you have",s:"cable face pull rear delt",alts:[{n:"Rear Delt Fly",eq:"machine",w:"Same target, fixed path",s:"rear delt fly machine"},{n:"Band Pull Apart",eq:"cable",w:"Do them anywhere",s:"resistance band pull apart"}]},
+      {n:"Face Pull",eq:"cable",m:"15–20 × 3 · 1 min",c:"Pull to the forehead, thumbs back. Best posture move you have",s:"cable face pull rear delt",alts:[{n:"Kneeling Face Pull",eq:"cable",w:"Kneeling stops you leaning back",s:"kneeling cable face pull"},{n:"Band Pull Apart",eq:"cable",w:"Do them anywhere",s:"resistance band pull apart"}]},
+      {n:"Rear Delt Fly",eq:"machine",m:"15 × 3 · 1 min",c:"Light and slow, squeeze the back of the shoulders",s:"rear delt fly machine",alts:[{n:"Reverse DB Fly",eq:"db",w:"Bent over, no machine needed",s:"bent over reverse dumbbell fly"},{n:"Reverse Cable Fly",eq:"cable",w:"Constant tension",s:"reverse cable fly rear delt"}]},
       {n:"Shrugs DB",eq:"db",m:"12–15 × 3 · 1 min",c:"Straight up toward the ears, pause, slow down. No rolling the shoulders",s:"dumbbell shrug traps",alts:[{n:"Barbell Shrugs",eq:"barbell",w:"Heavier loading",s:"barbell shrug traps"},{n:"Smith Machine Shrugs",eq:"machine",w:"Fixed path",s:"smith machine shrug"}]}
     ],
     cardio:[
@@ -625,13 +628,16 @@ function drawBar(){
 
 
 /* swaps are stored by list position. v26 rebuilt the week as one body part
-   per day, so any swap saved by an earlier build is cleared once rather than
-   shown on the wrong exercise. */
+   per day; v27 added an exercise on Mon, Tue and Wed and changed swap lists
+   there. Clear only what moved, once, rather than show a substitution on the
+   wrong exercise. */
 (function resetStaleSwaps(){
   try{
-    if(get("lc:swapv")==="8")return;
-    order.forEach(day=>{try{localStorage.removeItem(wKey(day));}catch(e){delete mem[wKey(day)];}});
-    put("lc:swapv","8");
+    const v=get("lc:swapv");
+    if(v==="9")return;
+    const drop=v==="8"?["mon","tue","wed"]:order;
+    drop.forEach(day=>{try{localStorage.removeItem(wKey(day));}catch(e){delete mem[wKey(day)];}});
+    put("lc:swapv","9");
   }catch(e){}
 })();
 
